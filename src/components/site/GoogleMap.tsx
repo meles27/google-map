@@ -1,28 +1,36 @@
 import React from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { LatLngExpression } from "leaflet";
+import withAnimation from "../route-animation/withAnimation";
 
-const mapContainerStyle: React.CSSProperties = {
-  height: "400px",
-  width: "800px",
-};
+// Define the component's props type
+interface GoogleMapProps {
+  center: LatLngExpression;
+  zoom: number;
+}
 
-const center = {
-  lat: -3.745,
-  lng: -74.35,
-};
-
-const MyMapComponent: React.FC = () => {
+const GoogleMap: React.FC<Partial<GoogleMapProps>> = (
+  { center, zoom } = { center: [51.505, -0.09], zoom: 13 }
+) => {
+  console.log("fsldfasldf", center, zoom);
   return (
-    <LoadScript googleMapsApiKey="YOUR_API_KEY">
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        center={center}
-        zoom={10}
-      >
-        <Marker position={center} />
-      </GoogleMap>
-    </LoadScript>
+    <MapContainer
+      center={[51.505, -0.09]}
+      zoom={13}
+      scrollWheelZoom={false}
+      className="border-2 border-indigo-500 w-full max-w-screen-lg h-[500px] bg-green-300"
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <Marker position={[51.505, -0.09]}>
+        <Popup>
+          A pretty CSS3 popup. <br /> Easily customizable.
+        </Popup>
+      </Marker>
+    </MapContainer>
   );
 };
 
-export default MyMapComponent;
+export default withAnimation(GoogleMap);

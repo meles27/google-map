@@ -1,5 +1,6 @@
+import "./App.css";
 import React from "react";
-import { RouterProvider, useLocation } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import router from "./routes";
 const App: React.FC = () => {
   return <RouterProvider router={router} />;

@@ -29,13 +29,8 @@ const navLinks: { title: string; path: string; type?: "button" | "link" }[] = [
     type: "link",
   },
   {
-    title: "How it work",
-    path: "/",
-    type: "link",
-  },
-  {
-    title: "Testimonials",
-    path: "/",
+    title: "Map",
+    path: "/map",
     type: "link",
   },
   {
