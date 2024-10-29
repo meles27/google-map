@@ -12,7 +12,9 @@ type WithAnimationProps = {
 const withAnimation = <P extends object>(
   WrappedComponent: React.ComponentType<P>
 ) => {
-  const AnimatedComponent: React.FC<P & WithAnimationProps> = (props) => {
+  const AnimatedComponent: React.FC<P & Partial<WithAnimationProps>> = (
+    props
+  ) => {
     return (
       <motion.section {...style}>
         <WrappedComponent {...(props as P)} />

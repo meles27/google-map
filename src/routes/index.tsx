@@ -8,7 +8,7 @@ import LoginPage from "../pages/site/LoginPage";
 import TestPage from "../pages/dashboard/TestPage";
 import ProtectedRoute from "../components/ProtectedRoute";
 import AnimatePage from "../components/route-animation/AnimatePage";
-import GoogleMap from "../components/site/GoogleMap";
+import MapPage from "../pages/site/MapPage";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/map",
-            element: <GoogleMap />,
+            element: <MapPage />,
           },
           {
             path: "*",

@@ -2,13 +2,16 @@ import GoogleMap from "../../components/site/GoogleMap";
 
 const MapPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center borer-2 border-red-500">
-      <GoogleMap>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti dicta
-        in similique dolores aspernatur doloremque? Nesciunt corporis ab
-        consequuntur maiores adipisci aut vel accusantium, voluptas, numquam
-        impedit deserunt. Harum, dolorem.
-      </GoogleMap>
+    <div className="flex flex-row items-center justify-center gap-lg">
+      <div className="flex">
+        <GoogleMap />
+      </div>
+      <div className="flex">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
+        voluptate dolorum eligendi, veritatis voluptas odio nam eos illum
+        sapiente! Placeat exercitationem soluta animi reprehenderit ab impedit
+        accusantium architecto ipsam error.
+      </div>
     </div>
   );
 };

@@ -4,11 +4,11 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { siteSlice } from "../slices/siteSlice";
 import { dashboardSlice } from "../slices/dashboardSlice";
 import { authApi } from "../services/authApi";
-import { counterSlice } from "../slices/counterSlice";
+import { culturalPlaceSlice } from "../slices/cultureSlice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterSlice.reducer,
+    culture: culturalPlaceSlice.reducer,
     site: siteSlice.reducer,
     dashboard: dashboardSlice.reducer,
     [testApi.reducerPath]: testApi.reducer,

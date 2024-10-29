@@ -1,36 +1,28 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { LatLngExpression } from "leaflet";
-import withAnimation from "../route-animation/withAnimation";
+import "leaflet/dist/leaflet.css";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 
-// Define the component's props type
-interface GoogleMapProps {
-  center: LatLngExpression;
-  zoom: number;
-}
-
-const GoogleMap: React.FC<Partial<GoogleMapProps>> = (
-  { center, zoom } = { center: [51.505, -0.09], zoom: 13 }
-) => {
-  console.log("fsldfasldf", center, zoom);
+const GoogleMap: React.FC = () => {
+  const culturalPlaces = useSelector((state: RootState) => state.culture);
   return (
     <MapContainer
-      center={[51.505, -0.09]}
+      center={[40.758, -73.9855]}
       zoom={13}
-      scrollWheelZoom={false}
-      className="border-2 border-indigo-500 w-full max-w-screen-lg h-[500px] bg-green-300"
+      className="h-[500px] w-[950px] rounded-xl"
     >
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Marker position={[51.505, -0.09]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
+      {culturalPlaces.map((place, index) => (
+        <Marker key={index} position={place.position}>
+          <Popup>{place.name}</Popup>
+        </Marker>
+      ))}
     </MapContainer>
   );
 };
 
-export default withAnimation(GoogleMap);
+export default GoogleMap;
