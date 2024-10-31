@@ -1,28 +1,28 @@
-import React from "react";
-import {
-  Input,
-  Option,
-  Select,
-  Button,
-  Dialog,
-  Textarea,
-  IconButton,
-  Typography,
-  DialogBody,
-  DialogHeader,
-  DialogFooter,
-} from "@material-tailwind/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
-import { toggleAddPlace } from "../../../slices/cultureSlice";
+import { addCulturalPlace, toggleAddPlace } from "../../../slices/cultureSlice";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { Button, Dialog } from "@material-tailwind/react";
+import { ErrorMessage } from "@hookform/error-message";
 
 export default function AddPlace() {
   const dispatch = useDispatch();
   const culturalPlaces = useSelector((state: RootState) => state.culture);
   const handleOpen = () => dispatch(toggleAddPlace());
   const form = useForm();
+
+  const handleSubmit = (data) => {
+    console.log(data);
+    dispatch(toggleAddPlace());
+    dispatch(addCulturalPlace(data));
+  };
+
+  useEffect(() => {
+    if (form.formState.errors) {
+      console.log(form.formState.errors);
+    }
+  });
   return (
     <>
       <Dialog
@@ -31,158 +31,151 @@ export default function AddPlace() {
         handler={handleOpen}
         className=""
       >
-        <DialogHeader className="relative m-0 block">
-          <Typography variant="h4" color="blue-gray">
-            Manage Item
-          </Typography>
-          <Typography className="mt-1 font-normal text-gray-600">
-            Keep your records up-to-date and organized.
-          </Typography>
-          <IconButton
-            size="sm"
-            variant="text"
-            className="!absolute right-3.5 top-3.5"
-            onClick={handleOpen}
+        <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-lg overflow-hidden">
+          <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase overflow-auto max-h-[500px]">
+            Add New Place
+          </div>
+          <form
+            className="py-4 px-6"
+            onSubmit={form.handleSubmit(handleSubmit)}
           >
-            <XMarkIcon className="h-4 w-4 stroke-2" />
-          </IconButton>
-        </DialogHeader>
-        <DialogBody className="space-y-4 pb-6 overflow-auto max-h-[calc(100vh-200px)]">
-          <div>
-            <Typography
-              variant="small"
-              color="blue-gray"
-              className="mb-2 text-left font-medium"
-            >
-              Place Name
-            </Typography>
-            <Input
-              color="gray"
-              size="lg"
-              placeholder="eg. White Shoes"
-              className="placeholder:opacity-100 focus:!border-t-gray-900"
-              containerProps={{
-                className: "!min-w-full",
-              }}
-              labelProps={{
-                className: "hidden",
-              }}
-              {...form.register("name", { required: "Name is required" })}
-            />
-          </div>
-          <div>
-            <Typography
-              variant="small"
-              color="blue-gray"
-              className="mb-2 text-left font-medium"
-            >
-              Region Name
-            </Typography>
-            <Select
-              className="!w-full !border-[1.5px] !border-blue-gray-200/90 !border-t-blue-gray-200/90 bg-white text-gray-800 ring-4 ring-transparent placeholder:text-gray-600 focus:!border-primary focus:!border-t-blue-gray-900 group-hover:!border-primary"
-              placeholder="1"
-              labelProps={{
-                className: "hidden",
-              }}
-              {...form.register("region", { required: "Region is required" })}
-            >
-              <Option value="Amhara">Amhara</Option>
-              <Option value="Oromia">Oromia</Option>
-              <Option value="Tigray">Tigray</Option>
-              <Option value="Somali">Somali</Option>
-              <Option value="Afar">Afar</Option>
-              <Option value="Benishangul-Gumuz">Benishangul-Gumuz</Option>
-              <Option value="Gambela">Gambela</Option>
-              <Option value="SNNPR">
-                SNNPR (Southern Nations, Nationalities, and Peoples' Region)
-              </Option>
-              <Option value="Dire Dawa">Dire Dawa</Option>
-              <Option value="Harari">Harari</Option>
-              <Option value="Addis Ababa">Addis Ababa</Option>
-              <Option value="Sidama">Sidama</Option>
-              <Option value="South West Ethiopia">
-                South West Ethiopia Peoples' Region
-              </Option>
-            </Select>
-          </div>
-          <div className="flex gap-4">
-            <div className="w-full">
-              <Typography
-                variant="small"
-                color="blue-gray"
-                className="mb-2 text-left font-medium"
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="name"
               >
-                Latitude
-              </Typography>
-              <Input
-                {...form.register("latitude", {
-                  required: "Latitude is required",
+                Place name
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="name"
+                type="text"
+                {...form.register("name", {
+                  required: "Place Name is required",
                 })}
-                type="number"
-                color="gray"
-                size="lg"
-                name="weight"
-                className="placeholder:opacity-100 focus:!border-t-gray-900"
-                containerProps={{
-                  className: "!min-w-full",
-                }}
-                labelProps={{
-                  className: "hidden",
-                }}
+              />
+              <ErrorMessage
+                errors={form.formState.errors}
+                name="name"
+                style={{ color: "red" }}
+                render={({ message }) => <p>{message}</p>}
               />
             </div>
-            <div className="w-full">
-              <Typography
-                variant="small"
-                color="blue-gray"
-                className="mb-2 text-left font-medium"
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="service"
               >
-                Longitude
-              </Typography>
-              <Input
-                {...form.register("longitude", {
-                  required: "Longitude is required",
+                Ethiopian Regions
+              </label>
+              <select
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="service"
+                {...form.register("region", {
+                  required: "Region is required",
                 })}
-                type="number"
-                color="gray"
-                size="lg"
-                name="size"
-                className="placeholder:opacity-100 focus:!border-t-gray-900"
-                containerProps={{
-                  className: "!min-w-full",
-                }}
-                labelProps={{
-                  className: "hidden",
-                }}
+              >
+                <option value="">Select a Region</option>
+                <option value="tigray">Tigray</option>
+                <option value="amhara">Amhara</option>
+                <option value="oromia">Oromia</option>
+                <option value="somali">Somali</option>
+                <option value="afar">Afar</option>
+                <option value="benishangul-gumuz">Benishangul-Gumuz</option>
+                <option value="gambela">Gambela</option>
+                <option value="snnpr">
+                  SNNPR (Southern Nations, Nationalities, and Peoples' Region)
+                </option>
+                <option value="dire-dawa">Dire Dawa</option>
+                <option value="harari">Harari</option>
+                <option value="addis-ababa">Addis Ababa</option>
+                <option value="sidama">Sidama</option>
+                <option value="south-west-ethiopia-peoples-region">
+                  South West Ethiopia Peoples' Region
+                </option>
+              </select>
+              <ErrorMessage
+                errors={form.formState.errors}
+                name="region"
+                style={{ color: "red" }}
+                render={({ message }) => <p>{message}</p>}
               />
             </div>
-          </div>
-          <div>
-            <Typography
-              variant="small"
-              color="blue-gray"
-              className="mb-2 text-left font-medium"
-            >
-              Description
-            </Typography>
-            <Textarea
-              rows={7}
-              {...form.register("description", {
-                required: "Description is required",
-              })}
-              placeholder="eg. This is a white shoes with a comfortable sole."
-              className="!w-full !border-[1.5px] !border-blue-gray-200/90 !border-t-blue-gray-200/90 bg-white text-gray-600 ring-4 ring-transparent focus:!border-primary focus:!border-t-blue-gray-900 group-hover:!border-primary"
-              labelProps={{
-                className: "hidden",
-              }}
-            />
-          </div>
-        </DialogBody>
-        <DialogFooter>
-          <Button className="ml-auto" onClick={handleOpen}>
-            Add Product
-          </Button>
-        </DialogFooter>
+            <div className="flex">
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 font-bold mb-2"
+                  htmlFor="email"
+                >
+                  longitude
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="email"
+                  type="number"
+                  {...form.register("longitude", {
+                    required: "Email is required",
+                  })}
+                />
+                <ErrorMessage
+                  errors={form.formState.errors}
+                  name="longitude"
+                  style={{ color: "red" }}
+                  render={({ message }) => <p>{message}</p>}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 font-bold mb-2"
+                  htmlFor="email"
+                >
+                  latitude
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="email"
+                  type="number"
+                  {...form.register("latitude", {
+                    required: "Email is required",
+                  })}
+                />
+                <ErrorMessage
+                  errors={form.formState.errors}
+                  name="latitude"
+                  style={{ color: "red" }}
+                  render={({ message }) => <p>{message}</p>}
+                />
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="message"
+              >
+                Description
+              </label>
+              <textarea
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="message"
+                rows={4}
+                placeholder="Enter any additional information"
+                defaultValue={""}
+                {...form.register("description", {
+                  required: "Description is required",
+                })}
+              />
+            </div>
+            <div className="flex items-center justify-center mb-4">
+              <Button
+                type="submit"
+                className="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+              >
+                Add Place
+              </Button>
+            </div>
+          </form>
+        </div>
       </Dialog>
     </>
   );

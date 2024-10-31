@@ -5,7 +5,6 @@ import ListPlace from "../../components/site/map/ListPlace";
 import { useWindowSize } from "usehooks-ts";
 import { Button } from "@material-tailwind/react";
 import { openAddPlace, toggleLines } from "../../slices/cultureSlice";
-import Place from "../../components/site/map/Place";
 
 const MapPage = () => {
   const culturalPlaces = useSelector((state: RootState) => state.culture);
@@ -13,20 +12,17 @@ const MapPage = () => {
   const dispatch = useDispatch();
   return (
     <div className="flex flex-row items-stretch justify-center gap-xs">
-      <div className="flex flex-3 flex-col">
+      <div className="flex flex-[7] flex-col">
         <GoogleMap />
       </div>
 
       <div
-        className="flex-1 overflow-auto"
+        className="flex-[3] overflow-auto"
         style={{
           maxHeight: height - 100,
         }}
       >
-        <ListPlace places={culturalPlaces.places} />
-      </div>
-      <div className="flex flex-1 flex-col p-md">
-        <div className="flex self-start justify-between w-full">
+        <div className="flex self-start justify-between w-full py-sm px-sm">
           <Button
             onClick={() => dispatch(toggleLines())}
             color="blue"
@@ -38,19 +34,7 @@ const MapPage = () => {
             Add Places
           </Button>
         </div>
-        <div className="flex">
-          <div className="">
-            <Place
-              place={
-                culturalPlaces.places.filter(
-                  (place) =>
-                    place.name.toLowerCase() ===
-                    culturalPlaces.active?.toLowerCase()
-                )[0]
-              }
-            />
-          </div>
-        </div>
+        <ListPlace places={culturalPlaces.places} />
       </div>
     </div>
   );

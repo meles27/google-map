@@ -4,10 +4,10 @@ import { initialState } from "./_culturalData";
 
 export interface CulturalPlace {
   name: string;
+  region: string;
   latitude: number;
   longitude: number;
   description: string;
-  region: string;
 }
 
 // Example cultural places
@@ -47,6 +47,15 @@ export const culturalPlaceSlice = createSlice({
     toggleLines: (state) => {
       state.showLines = !state.showLines;
     },
+    showDetail: (state) => {
+      state.showDetail = true;
+    },
+    hideDetail: (state) => {
+      state.showDetail = false;
+    },
+    toggleDetail: (state) => {
+      state.showDetail = !state.showDetail;
+    },
   },
 });
 
@@ -61,4 +70,7 @@ export const {
   showLines,
   hideLines,
   toggleLines,
+  showDetail,
+  hideDetail,
+  toggleDetail,
 } = culturalPlaceSlice.actions;

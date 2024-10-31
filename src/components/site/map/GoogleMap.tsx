@@ -38,26 +38,40 @@ const GoogleMap: React.FC = () => {
   });
 
   return (
-    <MapContainer
-      center={[13.5, 39.0]}
-      zoom={6}
-      className="h-[500px] min-w-[600px] rounded-xl"
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <div className="flex absolute left-16 top-0 z-[8888888] -translate-y-8">
-        <DisplayZoomLevel />
-      </div>
+    <div className="w-full h-full">
+      <MapContainer
+        center={[13.5, 39.0]}
+        zoom={6}
+        className="h-[500px] rounded-xl"
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <div className="flex absolute left-16 top-0 z-[8888888] -translate-y-8">
+          <DisplayZoomLevel />
+        </div>
 
-      {culturalPlaces.places.map((place, index) =>
-        culturalPlaces.active === place.name ? (
-          <CircleMarker
-            center={[place.latitude, place.longitude]}
-            pathOptions={{ color: "red" }}
-            radius={10}
-          >
+        {culturalPlaces.places.map((place, index) =>
+          culturalPlaces.active === place.name ? (
+            <CircleMarker
+              center={[place.latitude, place.longitude]}
+              pathOptions={{ color: "red" }}
+              radius={10}
+            >
+              <Marker
+                key={index}
+                position={{
+                  lat: place.latitude,
+                  lng: place.longitude,
+                }}
+              >
+                <Popup>
+                  <Place place={place} />
+                </Popup>
+              </Marker>
+            </CircleMarker>
+          ) : (
             <Marker
               key={index}
               position={{
@@ -69,38 +83,26 @@ const GoogleMap: React.FC = () => {
                 <Place place={place} />
               </Popup>
             </Marker>
-          </CircleMarker>
-        ) : (
-          <Marker
-            key={index}
-            position={{
-              lat: place.latitude,
-              lng: place.longitude,
-            }}
-          >
-            <Popup>
-              <Place place={place} />
-            </Popup>
-          </Marker>
-        )
-      )}
+          )
+        )}
 
-      {culturalPlaces.showLines &&
-        polyline.map((poly, index) => {
-          console.log("colur", colors[index], index);
-          console.log("length", polyline.length);
-          return (
-            <Polyline
-              pathOptions={{
-                color: colors[index],
-              }}
-              positions={poly}
-            />
-          );
-        })}
-      {/* locate the current active location */}
-      <LocatePlace />
-    </MapContainer>
+        {culturalPlaces.showLines &&
+          polyline.map((poly, index) => {
+            console.log("colur", colors[index], index);
+            console.log("length", polyline.length);
+            return (
+              <Polyline
+                pathOptions={{
+                  color: colors[index % colors.length],
+                }}
+                positions={poly}
+              />
+            );
+          })}
+        {/* locate the current active location */}
+        <LocatePlace />
+      </MapContainer>
+    </div>
   );
 };
 

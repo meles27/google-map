@@ -13,6 +13,7 @@ const config = {
     access: "",
     refresh: "",
   },
+  zoomLevel: 6,
 };
 
 export default config;

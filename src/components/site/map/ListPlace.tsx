@@ -12,7 +12,11 @@ import {
   Input,
 } from "@material-tailwind/react";
 import React from "react";
-import { CulturalPlace, setActivePlace } from "../../../slices/cultureSlice";
+import {
+  CulturalPlace,
+  setActivePlace,
+  showDetail,
+} from "../../../slices/cultureSlice";
 import { useDispatch } from "react-redux";
 
 interface ListPlaceProps {
@@ -27,6 +31,16 @@ const ListPlace: React.FC<ListPlaceProps> = (props) => {
     setSearch(event.target.value.toLowerCase());
   };
 
+  console.log(
+    props.places.reduce<CulturalPlace[]>((acc, place, index, array) => {
+      if (
+        acc.filter((prevPlace) => prevPlace.name === place.name).length === 0
+      ) {
+        acc.push(place);
+      }
+      return acc;
+    }, [])
+  );
   return (
     <Card className="flex flex-col">
       <CardHeader
@@ -81,7 +95,7 @@ const ListPlace: React.FC<ListPlaceProps> = (props) => {
                   </div>
                 </div>
                 <ListItemSuffix>
-                  <Button>Show</Button>
+                  <Button onClick={() => dispatch(showDetail())}>Show</Button>
                 </ListItemSuffix>
               </ListItem>
             ))}

@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
             <header className="flex flex-col gap-sm">
               <Typography className="flex text-6xl gap-x-sm">
                 Welcome to
-                <span className="text-indigo-500">Ethiopia</span>
+                <span className="text-indigo-500">Tigray</span>
               </Typography>
               <Typography variant="h5">
                 Explore the Rich Tapestry of Faith
@@ -24,14 +24,14 @@ const HomePage: React.FC = () => {
             </header>
             <p className="text-sm md:text-xl text-gray-400 mb-8">
               Uncover the profound history and diverse religious traditions that
-              shape Ethiopia's spiritual landscape. From the ancient rock-hewn
+              shape Tigray's spiritual landscape. From the ancient rock-hewn
               churches of Lalibela to the vibrant religious festivals in Axum,
               our site invites you to journey through time and experience the
               sacred sites that have influenced generations.
             </p>
             <Typography variant="h4">
-              Join us in celebrating Ethiopia's unique religious heritage and
-              its impact on culture, art, and community.
+              Join us in celebrating Tigray's unique religious heritage and its
+              impact on culture, art, and community.
             </Typography>
             <div className="flex gap-2">
               <Link
@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
           </div>
           <div className="flex-[2] min-w-[400px]">
             <img
-              src="https://cdn.prod.website-files.com/65943d23dc44e6ce92eb6b67/65fc9f534c1398dac499304d_commercial_search-p-800.jpg"
+              src="/image.jpg"
               alt="Hero Image"
               className="rounded-lg shadow-lg"
             />
