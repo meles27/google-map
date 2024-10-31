@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { closeNavbar } from "../slices/siteSlice";
 import { closeDashboardSidebar } from "../slices/dashboardSlice";
 import { AnimatePresence } from "framer-motion";
+import { closeAddPlace } from "../slices/cultureSlice";
 
 /**
  * This component is the root layout for the application. It uses the
@@ -29,6 +30,7 @@ const RootLayout: React.FC = () => {
   useEffect(() => {
     dispatch(closeNavbar());
     dispatch(closeDashboardSidebar());
+    dispatch(closeAddPlace());
   }, [dispatch, location]);
 
   return (

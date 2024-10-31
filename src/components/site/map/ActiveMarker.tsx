@@ -22,7 +22,7 @@ L.Marker.prototype.options.icon = new Icon({
 });
 
 const customIcon: Icon = new L.Icon({
-  iconUrl: "/public/marker.png", // Replace with the URL of your custom marker
+  iconUrl: "/marker.png", // Replace with the URL of your custom marker
   iconSize: [50, 41], // Size of the icon
   iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
   popupAnchor: [1, -34], // Point from which the popup should open relative to the iconAnchor
@@ -40,7 +40,7 @@ const ActiveMarker: React.FC<ActiveMarkerProps> = (props) => {
       position={[props.place.latitude, props.place.longitude]}
       icon={customIcon}
     >
-      <Place {...props.place} />
+      <Place place={props.place} />
     </Marker>
   );
 };

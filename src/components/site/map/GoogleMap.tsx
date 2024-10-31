@@ -1,30 +1,76 @@
 import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  CircleMarker,
+  Polyline,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
 import Place from "./Place";
 import DisplayZoomLevel from "./DisplayZoomLevel";
-import ActiveMarker from "./ActiveMarker";
+import LocatePlace from "./LocatePlace";
 
+const colors = [
+  "red",
+  "blue",
+  "green",
+  "yellow",
+  "orange",
+  "purple",
+  "pink",
+  "brown",
+  "black",
+  "gray",
+];
 const GoogleMap: React.FC = () => {
   const culturalPlaces = useSelector((state: RootState) => state.culture);
+
+  const activePlace = culturalPlaces.places
+    .filter((place) => place.name === culturalPlaces.active)
+    .map((place) => [place.latitude, place.longitude])[0];
+
+  const polyline = culturalPlaces.places.map((place, index, array) => {
+    return [activePlace, [place.latitude, place.longitude]];
+  });
+
   return (
     <MapContainer
       center={[13.5, 39.0]}
-      zoom={7}
+      zoom={6}
       className="h-[500px] min-w-[600px] rounded-xl"
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <div className="flex absolute left-16 top-0 z-[888888888]">
+      <div className="flex absolute left-16 top-0 z-[8888888] -translate-y-8">
         <DisplayZoomLevel />
       </div>
 
-      {culturalPlaces.map((place, index) =>
-        index != 5 ? (
+      {culturalPlaces.places.map((place, index) =>
+        culturalPlaces.active === place.name ? (
+          <CircleMarker
+            center={[place.latitude, place.longitude]}
+            pathOptions={{ color: "red" }}
+            radius={10}
+          >
+            <Marker
+              key={index}
+              position={{
+                lat: place.latitude,
+                lng: place.longitude,
+              }}
+            >
+              <Popup>
+                <Place place={place} />
+              </Popup>
+            </Marker>
+          </CircleMarker>
+        ) : (
           <Marker
             key={index}
             position={{
@@ -33,13 +79,27 @@ const GoogleMap: React.FC = () => {
             }}
           >
             <Popup>
-              <Place {...place} />
+              <Place place={place} />
             </Popup>
           </Marker>
-        ) : (
-          <ActiveMarker place={place} key={index} />
         )
       )}
+
+      {culturalPlaces.showLines &&
+        polyline.map((poly, index) => {
+          console.log("colur", colors[index], index);
+          console.log("length", polyline.length);
+          return (
+            <Polyline
+              pathOptions={{
+                color: colors[index],
+              }}
+              positions={poly}
+            />
+          );
+        })}
+      {/* locate the current active location */}
+      <LocatePlace />
     </MapContainer>
   );
 };
