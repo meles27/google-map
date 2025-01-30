@@ -448,7 +448,7 @@ const HomePage: React.FC = withAnimation(() => {
               </div>
             </div>
           </section>
-          <section className="mt-28 bg-gray-50 px-4 sm:px-10 py-12">
+          {/* <section className="mt-28 bg-gray-50 px-4 sm:px-10 py-12">
             <div className="max-w-7xl max-md:max-w-lg mx-auto">
               <h2 className="md:text-4xl text-3xl font-bold md:text-center mb-14">
                 Our Latest Blogs
@@ -525,7 +525,7 @@ const HomePage: React.FC = withAnimation(() => {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
 
           <section className="mt-28">
             <h2 className="md:text-4xl text-3xl font-bold text-center mb-14">

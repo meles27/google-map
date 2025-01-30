@@ -1,9 +1,8 @@
-import { Dialog, Input, Spinner } from "@material-tailwind/react";
+import { Dialog, DialogBody, Input, Spinner } from "@material-tailwind/react";
 import React, { useEffect, useRef, useState } from "react";
 import { useListNewsQuery } from "../../services/newsApi";
-import SpinnerPage from "../SpinnerPage";
 import { NewsEntityType } from "../../types/entity_types";
-import NewsDetail from "../../components/site/NewsDetail";
+import SpinnerPage from "../SpinnerPage";
 
 const NewsPage: React.FC = () => {
   const [searchParams, setSearchParams] = useState<{ q: string }>({
@@ -37,9 +36,9 @@ const NewsPage: React.FC = () => {
             </div>
           </div>
           <div className="relative self-start grid grid-cols-2 gap-sm">
-            {(!newsResponse.isLoading && newsResponse.isFetching) && (
+            {!newsResponse.isLoading && newsResponse.isFetching && (
               <div className="flex items-center justify-between gap-sm bg-secondary p-sm rounded-full shadow-xl absolute z-10 top-[20rem] left-1/2 -translate-x-1/2 text-2xl text-primary">
-                Loading ........ <Spinner/>
+                Loading ........ <Spinner />
               </div>
             )}
             {newsResponse.data?.map((news) => {
@@ -78,12 +77,39 @@ const NewsPage: React.FC = () => {
             })}
           </div>
           <Dialog
-            size="xl"
+            size="sm"
             open={newsDetail}
             handler={() => setNewsDetail(false)}
             className="h-screen overflow-auto"
           >
-            <NewsDetail />
+            <DialogBody>
+            <div
+                  className="relative flex flex-col my-6 bg-white shadow-sm border border-neutral-200 rounded-lg w-96 hover:cursor-pointer"
+                >
+                  <div className="relative h-56 m-2.5 overflow-hidden text-white rounded-md">
+                    <img
+                      src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+                      alt="card-image"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h6 className="mb-2 text-neutral-800 text-xl font-semibold">
+                      {newsRef.current?.title}
+                    </h6>
+                    <p className="text-neutral-600 leading-normal font-light">
+                      {newsRef.current?.content}
+                    </p>
+                  </div>
+                  <div className="px-4 pb-4 pt-0 mt-2">
+                    <button
+                      className="rounded-md bg-neutral-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-neutral-700 focus:shadow-none active:bg-neutral-700 hover:bg-neutral-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                      type="button"
+                    >
+                      Read more
+                    </button>
+                  </div>
+                </div>
+            </DialogBody>
           </Dialog>
         </section>
       )}
