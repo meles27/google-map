@@ -1,23 +1,21 @@
 import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Input,
   List,
   ListItem,
-  ListItemPrefix,
-  Avatar,
-  Card,
-  Typography,
-  CardHeader,
-  CardBody,
-  Button,
   ListItemSuffix,
-  Input,
+  Typography
 } from "@material-tailwind/react";
 import React from "react";
+import { useDispatch } from "react-redux";
 import {
   CulturalPlace,
   setActivePlace,
   showDetail,
 } from "../../../slices/cultureSlice";
-import { useDispatch } from "react-redux";
 
 interface ListPlaceProps {
   places: CulturalPlace[];
@@ -32,7 +30,7 @@ const ListPlace: React.FC<ListPlaceProps> = (props) => {
   };
 
   console.log(
-    props.places.reduce<CulturalPlace[]>((acc, place, index, array) => {
+    props.places.reduce<CulturalPlace[]>((acc, place) => {
       if (
         acc.filter((prevPlace) => prevPlace.name === place.name).length === 0
       ) {
@@ -58,12 +56,12 @@ const ListPlace: React.FC<ListPlaceProps> = (props) => {
               props.places.filter(
                 (place) =>
                   place.name.toLowerCase().includes(search) ||
-                  place.region.toLowerCase().includes(search)
+                  place.region?.toLowerCase()?.includes(search)
               ).length
             }
           </span>
         </Typography>
-        <Input label="search place" onChange={handleChange} />
+        <Input crossOrigin={""} label="search place" onChange={handleChange} />
       </CardHeader>
       <CardBody className="flex-9">
         <List>
@@ -71,8 +69,8 @@ const ListPlace: React.FC<ListPlaceProps> = (props) => {
             .filter(
               (place) =>
                 place.name.toLowerCase().includes(search) ||
-                place.region.toLowerCase().includes(search) ||
-                place.description.toLowerCase().includes(search)
+                place.region?.toLowerCase().includes(search) ||
+                place.description?.toLowerCase().includes(search)
             )
             .map((place) => (
               <ListItem

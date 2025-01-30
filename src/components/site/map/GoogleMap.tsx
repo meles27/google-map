@@ -1,41 +1,28 @@
+import "leaflet/dist/leaflet.css";
 import React from "react";
 import {
+  CircleMarker,
   MapContainer,
-  TileLayer,
   Marker,
   Popup,
-  CircleMarker,
-  Polyline,
+  TileLayer
 } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
-import Place from "./Place";
 import DisplayZoomLevel from "./DisplayZoomLevel";
 import LocatePlace from "./LocatePlace";
+import Place from "./Place";
 
-const colors = [
-  "red",
-  "blue",
-  "green",
-  "yellow",
-  "orange",
-  "purple",
-  "pink",
-  "brown",
-  "black",
-  "gray",
-];
 const GoogleMap: React.FC = () => {
   const culturalPlaces = useSelector((state: RootState) => state.culture);
 
-  const activePlace = culturalPlaces.places
-    .filter((place) => place.name === culturalPlaces.active)
-    .map((place) => [place.latitude, place.longitude])[0];
+  // const activePlace = culturalPlaces.places
+  //   .filter((place) => place.name === culturalPlaces.active)
+  //   .map((place) => [place.latitude, place.longitude])[0];
 
-  const polyline = culturalPlaces.places.map((place, index, array) => {
-    return [activePlace, [place.latitude, place.longitude]];
-  });
+  // const polyline = culturalPlaces.places.map((place, index, array) => {
+  //   return [activePlace, [place.latitude, place.longitude]];
+  // });
 
   return (
     <div className="w-full h-full">
@@ -86,7 +73,7 @@ const GoogleMap: React.FC = () => {
           )
         )}
 
-        {culturalPlaces.showLines &&
+        {/* {culturalPlaces.showLines &&
           polyline.map((poly, index) => {
             console.log("colur", colors[index], index);
             console.log("length", polyline.length);
@@ -98,7 +85,7 @@ const GoogleMap: React.FC = () => {
                 positions={poly}
               />
             );
-          })}
+          })} */}
         {/* locate the current active location */}
         <LocatePlace />
       </MapContainer>

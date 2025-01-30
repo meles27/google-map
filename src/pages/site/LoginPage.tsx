@@ -1,33 +1,27 @@
-import {
-  Button,
-  Card,
-  Input,
-  Spinner,
-  Typography,
-} from "@material-tailwind/react";
+import { ErrorMessage } from "@hookform/error-message";
+import { Button, Input, Spinner } from "@material-tailwind/react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useJwtTokenMutation } from "../../services/authApi";
-import { useLocalStorage } from "usehooks-ts";
-import config from "../../config";
-import { JwtTokenIface, LoginType } from "../../types/types";
 import {
   Navigate,
   useLocation,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { isAuthenticated } from "../../utils/auth";
-import { useEffect } from "react";
+import { useLocalStorage } from "usehooks-ts";
 import withAnimation from "../../components/route-animation/withAnimation";
-import { ErrorMessage } from "@hookform/error-message";
+import config from "../../config";
+import { useJwtTokenMutation } from "../../services/authApi";
+import { LoginType } from "../../types/types";
+import { isAuthenticated } from "../../utils/auth";
 
 const LoginPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const form = useForm({ defaultValues: { username: "", password: "" } });
+  const form = useForm({ defaultValues: { email: "", password: "" } });
   const [searchParams] = useSearchParams(location.search);
-  const [token, setToken] = useLocalStorage<Required<JwtTokenIface>>(
+  const [token, setToken] = useLocalStorage<string>(
     config.JWT_KEY_NAME,
     config.JWT_DEFAULT_VALUE
   );
@@ -36,13 +30,13 @@ const LoginPage = () => {
     console.log("this is the submit stage", data);
     login({
       password: data.password,
-      username: data.username,
+      email: data.email,
     });
   };
 
   useEffect(() => {
     if (loginResponse.isSuccess) {
-      setToken(loginResponse.data);
+      setToken(loginResponse.data.token);
       navigate(
         searchParams.get("from")
           ? searchParams.get("from") + location.hash
@@ -56,7 +50,7 @@ const LoginPage = () => {
       console.log(loginResponse.error, "------------");
       if ((loginResponse.error as any).status === 401) {
         Object.keys((loginResponse.error as any).data).forEach((key) => {
-          if (key === "username" || key === "password") {
+          if (key === "email" || key === "password") {
             return;
           }
           form.setError("root", {
@@ -74,7 +68,7 @@ const LoginPage = () => {
 
   return (
     <>
-      {isAuthenticated(token.access) ? (
+      {isAuthenticated(token) ? (
         <Navigate
           to={
             searchParams.get("from")
@@ -98,21 +92,21 @@ const LoginPage = () => {
                     onSubmit={form.handleSubmit(onSubmit)}
                   >
                     <Input
-                      {...form.register("username", {
-                        required: "username is required",
+                      crossOrigin={""}
+                      {...form.register("email", {
+                        required: "email is required",
                       })}
+                      defaultValue="admin@mekelle.app"
                       variant="standard"
-                      label="username"
+                      label="email"
                     />
-                    <ErrorMessage
-                      errors={form.formState.errors}
-                      name="username"
-                    />
-                    <ErrorMessage errors={form.formState.errors} name="root" />
+                    <ErrorMessage errors={form.formState.errors} name="email" />
                     <Input
+                      crossOrigin={""}
                       {...form.register("password", {
                         required: "password is required",
                       })}
+                      defaultValue="Admin123!"
                       type="password"
                       variant="standard"
                       label="password"
@@ -121,19 +115,24 @@ const LoginPage = () => {
                     <ErrorMessage
                       errors={form.formState.errors}
                       name="password"
-                      style={{ color: "red" }}
                       render={({ message }) => <p>{message}</p>}
                     />
                     <div className="relative">
                       <Button type="submit" className="bg-cyan-500 text-white">
-                        Submit
+                        {loginResponse.isLoading ? <Spinner /> : "Submit"}
                       </Button>
                     </div>
-                    <ErrorMessage
-                      errors={form.formState.errors}
-                      name="root"
-                      render={({ message }) => <p>{message}</p>}
-                    />
+                    {loginResponse.isError && (
+                      <div className="text-red-500 p-sm shadow-xl rounded-xl">
+                        {JSON.stringify(loginResponse.error?.data)}
+                      </div>
+                    )}
+
+                    {loginResponse.isSuccess && (
+                      <div className="text-green-500 p-sm shadow-xl rounded-xl">
+                        successfully logged in
+                      </div>
+                    )}
                     <p className="flex text-center text-sm text-primary-500 gap-sm">
                       Don&#x27;t have an account yet?
                       <a

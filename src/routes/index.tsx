@@ -9,6 +9,10 @@ import TestPage from "../pages/dashboard/TestPage";
 import ProtectedRoute from "../components/ProtectedRoute";
 import AnimatePage from "../components/route-animation/AnimatePage";
 import MapPage from "../pages/site/MapPage";
+import NewsPage from "../pages/site/NewsPage";
+import EventsPage from "../pages/site/EventsPage";
+import TourismPage from "../pages/site/TourismPage";
+import ServicesPage from "../pages/site/ServicesPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +35,22 @@ const router = createBrowserRouter([
           {
             path: "/map",
             element: <MapPage />,
+          },
+          {
+            path: "/news",
+            element: <NewsPage />,
+          },
+          {
+            path: "/events",
+            element: <EventsPage />,
+          },
+          {
+            path: "/tourism",
+            element: <TourismPage />,
+          },
+          {
+            path: "/services",
+            element: <ServicesPage />,
           },
           {
             path: "*",

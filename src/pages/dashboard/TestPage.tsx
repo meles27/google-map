@@ -1,7 +1,9 @@
 import React from "react";
+import NewsDetail from "../../components/site/NewsDetail";
+
 
 const TestPage: React.FC = () => {
-  return <div>TestPage</div>;
+  return <NewsDetail />;
 };
 
 export default TestPage;

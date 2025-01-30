@@ -1,13 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialState } from "./_culturalData";
 // import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface CulturalPlace {
   name: string;
-  region: string;
+  region?: string;
   latitude: number;
   longitude: number;
-  description: string;
+  description?: string;
 }
 
 // Example cultural places
@@ -18,6 +18,10 @@ export const culturalPlaceSlice = createSlice({
   reducers: {
     addCulturalPlace: (state, action) => {
       state.places.push(action.payload);
+    },
+
+    addCulturalPlaces: (state, action: PayloadAction<CulturalPlace[]>) => {
+      action.payload.map((place) => state.places.push(place));
     },
     removeCulturalPlace: (state, action) => {
       state.places.splice(action.payload, 1);
@@ -62,6 +66,7 @@ export const culturalPlaceSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   addCulturalPlace,
+  addCulturalPlaces,
   removeCulturalPlace,
   setActivePlace,
   openAddPlace,

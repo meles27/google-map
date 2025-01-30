@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import GoogleMap from "../../components/site/map/GoogleMap";
-import { RootState } from "../../app/store";
-import ListPlace from "../../components/site/map/ListPlace";
-import { useWindowSize } from "usehooks-ts";
 import { Button } from "@material-tailwind/react";
-import { openAddPlace, toggleLines } from "../../slices/cultureSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useWindowSize } from "usehooks-ts";
+import { RootState } from "../../app/store";
+import GoogleMap from "../../components/site/map/GoogleMap";
+import ListPlace from "../../components/site/map/ListPlace";
+import { openAddPlace } from "../../slices/cultureSlice";
 
 const MapPage = () => {
   const culturalPlaces = useSelector((state: RootState) => state.culture);
@@ -23,13 +23,13 @@ const MapPage = () => {
         }}
       >
         <div className="flex self-start justify-between w-full py-sm px-sm">
-          <Button
+          {/* <Button
             onClick={() => dispatch(toggleLines())}
             color="blue"
             variant="outlined"
           >
             {culturalPlaces.showLines ? "Hide Lines" : "Show Lines"}
-          </Button>
+          </Button> */}
           <Button onClick={() => dispatch(openAddPlace())} color="blue">
             Add Places
           </Button>

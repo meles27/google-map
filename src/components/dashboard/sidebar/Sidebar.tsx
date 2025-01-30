@@ -1,45 +1,85 @@
-import { Typography, List, ListItem } from "@material-tailwind/react";
-import React from "react";
-import { GiBurningTree } from "react-icons/gi";
-import { Link } from "react-router-dom";
+import {
+  Cog6ToothIcon,
+  PowerIcon,
+  PresentationChartBarIcon
+} from "@heroicons/react/24/solid";
+import {
+  Button,
+  Card,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+  List,
+  ListItem,
+  ListItemPrefix,
+  Typography,
+} from "@material-tailwind/react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useLocalStorage } from "usehooks-ts";
 
-const Sidebar: React.FC = () => {
+export default function Sidebar() {
+  const navigate = useNavigate();
+  const [openDialog, setOpenDialog] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [token, setToken, clearToken] = useLocalStorage("token", null);
+  const handleLogout = () => {
+    clearToken();
+    navigate("/signin");
+  };
+  
   return (
-    <nav className="flex flex-col">
-      <Link to="/">
-        <div
-          id="logo"
-          className="flex w-full items-center justify-start gap-sm py-md"
-        >
-          <GiBurningTree className="!text-secondary-400 !text-6xl" />
-          <Typography className="text-secondary-400" variant="h3">
-            Gc-Family
-          </Typography>
-        </div>
+    <Card className="h-screen w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+      <Link to={"/"} className="mb-2 p-4">
+        <Typography variant="h5" color="blue-gray">
+          MIT-Mekelle
+        </Typography>
       </Link>
-
-      <List className="gap-0 !flex flex-col">
-        <Link
-          className="flex w-full h-full items-center justify-start"
-          to="/dashboard"
-        >
-          <ListItem className="text-primary-900">Dashboard</ListItem>
-        </Link>
-        <Link
-          className="flex w-full h-full items-center justify-start"
-          to="/dashboard/test"
-        >
-          <ListItem className="text-primary-900">Test page</ListItem>
-        </Link>
-        <Link
-          className="flex w-full h-full items-center justify-start"
-          to="/dashboard/not-found"
-        >
-          <ListItem className="text-primary-900">not found Page</ListItem>
-        </Link>
-      </List>
-    </nav>
+      <List className="flex flex-col h-[calc(100%-2rem)]">
+        <ListItem onClick={() => navigate("/dashboard")}>
+          <ListItemPrefix>
+            <PresentationChartBarIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          Dashboard
+        </ListItem>
+        <ListItem onClick={() => navigate("/dashboard/settings")}>
+          <ListItemPrefix>
+            <Cog6ToothIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          Settings
+        </ListItem>
+        <div className="flex-1 flex flex-col justify-end">
+          <ListItem
+            onClick={() => setOpenDialog(true)}
+            className="bg-red-500/50 hover:bg-red-500"
+          >
+            <ListItemPrefix>
+              <PowerIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Log Out
+          </ListItem>
+        </div>
+      </List>{" "}
+      <Dialog open={openDialog} handler={() => setOpenDialog(false)}>
+        <DialogHeader>Logout</DialogHeader>
+        <DialogBody>
+         Are you sure to leave this page?
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={() => setOpenDialog(false)}
+            className="mr-1"
+          >
+            <span>Cancel, I am in</span>
+          </Button>
+          <Button variant="gradient" color="green" onClick={handleLogout}>
+            <span>Yes</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
+    </Card>
   );
-};
-
-export default Sidebar;
+}

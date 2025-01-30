@@ -4,25 +4,15 @@ import config from "../config";
 import axiosBaseQuery from "../utils/baseQuery/axiosBaseQuery";
 
 // Define a service using a base URL and expected endpoints
-export const authApi = createApi({
-  reducerPath: "authApi",
+export const mapApi = createApi({
+  reducerPath: "mapApi",
   baseQuery: axiosBaseQuery({ baseUrl: config.baseUrl }),
   endpoints: (builder) => ({
-    jwtToken: builder.mutation({
-      query: (arg: { email: string; password: string }) => {
+    listMaps: builder.query<object, void>({
+      query: () => {
         return {
-          url: config.LOGIN_URL,
-          method: "POST",
-          data: arg,
-        };
-      },
-    }),
-    refreshToken: builder.mutation({
-      query: (arg: { refresh: string }) => {
-        return {
-          url: config.REFRESH_TOKEN_URL,
-          method: "POST",
-          data: arg,
+          url: config.MAP_URL,
+          method: "GET",
         };
       },
     }),
@@ -31,4 +21,4 @@ export const authApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useJwtTokenMutation, useRefreshTokenMutation } = authApi;
+export const { useListMapsQuery } = mapApi;

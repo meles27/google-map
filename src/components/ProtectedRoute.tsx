@@ -1,20 +1,19 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { isAuthenticated } from "../utils/auth";
 import { useLocalStorage } from "usehooks-ts";
-import { JwtTokenIface } from "../types/types";
 import config from "../config";
+import { isAuthenticated } from "../utils/auth";
 
 const ProtectedRoute: React.FC = () => {
   const location = useLocation();
-  const [token] = useLocalStorage<Required<JwtTokenIface>>(
+  const [token] = useLocalStorage<string>(
     config.JWT_KEY_NAME,
     config.JWT_DEFAULT_VALUE
   );
 
   return (
     <>
-      {isAuthenticated(token.access) ? (
+      {isAuthenticated(token) ? (
         <Outlet /> // Render wrapped component
       ) : (
         // save the location and redirect to login page and pass the location as state to redirect

@@ -18,19 +18,28 @@ const navLinks: { title: string; path: string; type?: "button" | "link" }[] = [
     type: "link",
   },
   {
-    title: "About",
-    path: "/",
-    type: "link",
-  },
-  {
-    title: "Features",
-    path: "/",
-
+    title: "News",
+    path: "/news",
     type: "link",
   },
   {
     title: "Map",
     path: "/map",
+    type: "link",
+  },
+  {
+    title: "Events",
+    path: "/events",
+    type: "link",
+  },
+  {
+    title: "Travel's",
+    path: "/tourism",
+    type: "link",
+  },
+  {
+    title: "services",
+    path: "/services",
     type: "link",
   },
   {

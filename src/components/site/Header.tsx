@@ -10,10 +10,10 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="sticky top-0 left-0 flex h-24 items-center justify-center bg-primary text-neutral-50 z-10">
+    <div className="sticky top-0 left-0 flex h-full p-sm items-center justify-center bg-white text-neutral-900 z-10">
       <div className="container flex flex-row flex-1 items-center justify-between px-sm">
         <div id="logo" className="flex items-center justify-center gap-sm p-sm">
-          <GiBurningTree className="!text-secondary-400 !text-6xl" />
+          <GiBurningTree className="!text-secondary-400 !text-3xl" />
           <Link to="/" className="text-3xl font-bold">
             Gc Family
           </Link>
