@@ -14,6 +14,7 @@ import {
 } from "../slices/cultureSlice";
 import { closeDashboardSidebar } from "../slices/dashboardSlice";
 import { closeNavbar } from "../slices/siteSlice";
+import { ToastContainer } from "react-toastify";
 
 /**
  * This component is the root layout for the application. It uses the
@@ -76,6 +77,17 @@ const RootLayout: React.FC = () => {
   return (
     <AnimatePresence>
       <Outlet />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        className="!z-[10000]"
+      />
     </AnimatePresence>
   );
 };

@@ -25,7 +25,7 @@ export const eventApi = createApi({
         return {
           url: config.EVENTS_URL,
           method: "POST",
-          event,
+          data: event,
         };
       },
     }),

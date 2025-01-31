@@ -1,5 +1,6 @@
 const PATHS = {
   baseUrl: "https://n9dmqh9j-3000.euw.devtunnels.ms/api",
+  // baseUrl: "https://n9dmqh9j-3000.euw.devtunnels.ms/api",
   TOKEN_URL: "/token/",
   EVENTS_URL: "/events",
   REGISTER_FOR_EVENT_URL: "/events/${eventId}/register",

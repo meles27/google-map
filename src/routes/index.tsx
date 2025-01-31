@@ -13,6 +13,7 @@ import NewsPage from "../pages/site/NewsPage";
 import EventsPage from "../pages/site/EventsPage";
 import TourismPage from "../pages/site/TourismPage";
 import ServicesPage from "../pages/site/ServicesPage";
+import AddEventPage from "../pages/dashboard/AddEventPage";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
               {
                 path: "",
                 element: <DashboardHomePage />,
+              },
+              {
+                path: "add-event",
+                element: <AddEventPage />,
               },
               {
                 path: "test",

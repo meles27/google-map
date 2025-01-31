@@ -6,7 +6,7 @@ import { openDashboardSidebar } from "../../slices/dashboardSlice";
 const Header: React.FC = () => {
   const dispatch = useDispatch();
   return (
-    <header className="sticky top-0 left-0 flex flex-row items-center justify-between h-14 z-[100] self-stretch">
+    <header className="sticky top-0 left-0 flex flex-row items-center justify-between h-14 z-[100] self-stretch shadow-lg bg-white px-md">
      <div className="max-w-md">
      <Input
         label="search"

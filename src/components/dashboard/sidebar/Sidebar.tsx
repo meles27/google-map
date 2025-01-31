@@ -1,7 +1,6 @@
 import {
   Cog6ToothIcon,
-  PowerIcon,
-  PresentationChartBarIcon
+  PowerIcon
 } from "@heroicons/react/24/solid";
 import {
   Button,
@@ -16,6 +15,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useState } from "react";
+import { BiCalendarEvent } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "usehooks-ts";
 
@@ -28,7 +28,7 @@ export default function Sidebar() {
     clearToken();
     navigate("/signin");
   };
-  
+
   return (
     <Card className="h-screen w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <Link to={"/"} className="mb-2 p-4">
@@ -39,9 +39,9 @@ export default function Sidebar() {
       <List className="flex flex-col h-[calc(100%-2rem)]">
         <ListItem onClick={() => navigate("/dashboard")}>
           <ListItemPrefix>
-            <PresentationChartBarIcon className="h-5 w-5" />
+            <BiCalendarEvent className="h-5 w-5" />
           </ListItemPrefix>
-          Dashboard
+          Events
         </ListItem>
         <ListItem onClick={() => navigate("/dashboard/settings")}>
           <ListItemPrefix>
@@ -49,6 +49,7 @@ export default function Sidebar() {
           </ListItemPrefix>
           Settings
         </ListItem>
+
         <div className="flex-1 flex flex-col justify-end">
           <ListItem
             onClick={() => setOpenDialog(true)}
@@ -60,12 +61,10 @@ export default function Sidebar() {
             Log Out
           </ListItem>
         </div>
-      </List>{" "}
+      </List>
       <Dialog open={openDialog} handler={() => setOpenDialog(false)}>
         <DialogHeader>Logout</DialogHeader>
-        <DialogBody>
-         Are you sure to leave this page?
-        </DialogBody>
+        <DialogBody>Are you sure to leave this page?</DialogBody>
         <DialogFooter>
           <Button
             variant="text"

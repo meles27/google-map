@@ -1,0 +1,30 @@
+[
+    {
+        "title": "Summer Beats Festival",
+        "category": "Music",
+        "description": "A three-day outdoor music festival featuring performances from top artists across various genres.",
+        "date": "2025-06-10 to 2025-06-12",
+        "location": "Mekelle City Park, Mekelle"
+    },
+    {
+        "title": "Modern Art Showcase",
+        "category": "Art",
+        "description": "An exhibition featuring contemporary artworks from emerging artists, focusing on themes of identity and culture.",
+        "date": "2025-09-01 to 2025-09-30",
+        "location": "Mekelle Art Gallery, Mekelle"
+    },
+    {
+        "title": "City Marathon for Health",
+        "category": "Sports/Charity",
+        "description": "A marathon event aimed at raising funds for local health initiatives, open to runners of all levels.",
+        "date": "2025-10-22",
+        "location": "Mekelle Stadium, Mekelle"
+    },
+    {
+        "title": "Annual Science Explorers Fair",
+        "category": "Education",
+        "description": "A platform for students to present their science projects and innovations to the community and judges.",
+        "date": "2025-04-05 to 2025-04-06",
+        "location": "Mekelle University, Mekelle"
+    }
+]
