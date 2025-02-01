@@ -16,6 +16,7 @@ const PATHS = {
   REFRESH_TOKEN_URL: "/token/refresh/",
   LOGIN_REDIRECT: "/dashboard",
   LOGIN_URL: "/auth/login",
+  DASHBOARD_URL: "/user/dashboard",
 };
 
 const config = {

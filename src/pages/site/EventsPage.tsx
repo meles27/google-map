@@ -1,9 +1,12 @@
+import { Button } from "@material-tailwind/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useListEventsQuery } from "../../services/eventApi";
 import SpinnerPage from "../SpinnerPage";
 
 const EventsPage: React.FC = () => {
   const eventsResponse = useListEventsQuery();
+  const navigate = useNavigate();
 
   return (
     <div className="flex w-full h-full max-w-[960px] mx-auto">
@@ -31,9 +34,18 @@ const EventsPage: React.FC = () => {
                     <p className="text-gray-700 leading-tight">
                       {event.description}
                     </p>
-                    <p className="leading-tight py-md text-primary">
-                      {event.date?.slice(0, 10)}
-                    </p>
+                    <div className="flex items-center justify-between p-sm">
+                      <p className="leading-tight py-md text-primary">
+                        {event.date?.slice(0, 10)}
+                      </p>
+                      <Button
+                        className="bg-primary"
+                        size="sm"
+                        onClick={() => navigate("/dashboard")}
+                      >
+                        Subscribe
+                      </Button>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -51,9 +63,18 @@ const EventsPage: React.FC = () => {
                     <p className="text-gray-700 leading-tight">
                       {event.description}
                     </p>
-                    <p className="leading-tight py-md text-primary">
-                      {event.date?.slice(0, 10)}
-                    </p>
+                    <div className="flex items-center justify-between p-sm">
+                      <p className="leading-tight py-md text-primary">
+                        {event.date?.slice(0, 10)}
+                      </p>
+                      <Button
+                        className="bg-primary"
+                        size="sm"
+                        onClick={() => navigate("/dashboard")}
+                      >
+                        Subscribe
+                      </Button>
+                    </div>
                   </div>
                 </div>
               )

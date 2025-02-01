@@ -1,0 +1,24 @@
+@job_clientId=c003a37f-024f-462a-b36d-b001be4cd24a
+@job_clientSecret=32a39620-32b3-4307-9aa1-511e3d7f48a8
+@job_tokenEndpoint=https://api-con.arbeitsagentur.de/oauth/gettoken_cc
+@job_useAuthorizationHeader=false
+@Host = localhost:3000
+
+@orderId = a87fc8f7-b0f8-49cd-b0ac-36fb40f0f2e7
+@saleId = a87fc8f7-b0f8-49cd-b0ac-36fb40f0f2e7
+@productId = a16bc8b4-6d6b-43b0-9d09-f896ba154c1b
+@base = https://n9dmqh9j-3000.euw.devtunnels.ms/api
+###
+
+# list of services
+###
+GET {{base}}/services HTTP/1.1
+
+
+# list of users
+###
+GET {{base}}/auth/users HTTP/1.1
+
+# list of events
+###
+GET {{base}}/events

@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { authApi } from "../services/authApi";
+import { businessApi } from "../services/businessApi";
+import { dashboardApi } from "../services/dashboardApi";
 import { eventApi } from "../services/eventApi";
+import { mapApi } from "../services/mapApi";
 import { newsApi } from "../services/newsApi";
 import { serviceApi } from "../services/serviceApi";
 import { testApi } from "../services/testApi";
@@ -9,8 +12,6 @@ import { tourismApi } from "../services/tourismApi";
 import { culturalPlaceSlice } from "../slices/cultureSlice";
 import { dashboardSlice } from "../slices/dashboardSlice";
 import { siteSlice } from "../slices/siteSlice";
-import { mapApi } from "../services/mapApi";
-import { businessApi } from "../services/businessApi";
 
 export const store = configureStore({
   reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
     [serviceApi.reducerPath]: serviceApi.reducer,
     [mapApi.reducerPath]: mapApi.reducer,
     [businessApi.reducerPath]: businessApi.reducer,
+    [dashboardApi.reducerPath]: dashboardApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -35,7 +37,8 @@ export const store = configureStore({
       tourismApi.middleware,
       serviceApi.middleware,
       mapApi.middleware,
-      businessApi.middleware
+      businessApi.middleware,
+      dashboardApi.middleware
     ),
 });
 

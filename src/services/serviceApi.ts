@@ -21,7 +21,7 @@ export const serviceApi = createApi({
 
     listFeedbacks: builder.query<
       ServicesEntityType[],
-      { category: string; serviceId: string }
+      { category: string; serviceId: number }
     >({
       query: (searchParams) => {
         return {
@@ -37,7 +37,7 @@ export const serviceApi = createApi({
 
     createFeedback: builder.mutation<
       ServicesEntityType,
-      CreateFeedbackInput & { serviceId: string }
+      CreateFeedbackInput & { serviceId: number }
     >({
       query: ({ serviceId, ...feedback }) => {
         return {

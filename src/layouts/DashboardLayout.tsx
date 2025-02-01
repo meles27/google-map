@@ -18,7 +18,7 @@ const DashboardLayout: React.FC = () => {
         </aside>
         <main className="flex flex-col flex-1 max-w-full lg:max-w-[calc(100%-300px)]">
           <Header />
-          <div className="w-full overflow-auto">
+          <div className="w-full h-full overflow-auto">
             <AnimatePresence>
               <Outlet />
             </AnimatePresence>

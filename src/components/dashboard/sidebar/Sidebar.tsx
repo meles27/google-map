@@ -12,7 +12,8 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useState } from "react";
-import { BiCalendarEvent } from "react-icons/bi";
+import { FaUsersCog } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "usehooks-ts";
 
@@ -36,7 +37,14 @@ export default function Sidebar() {
       <List className="flex flex-col h-[calc(100%-2rem)]">
         <ListItem onClick={() => navigate("/dashboard")}>
           <ListItemPrefix>
-            <BiCalendarEvent className="h-5 w-5" />
+            <MdDashboard className="h-5 w-5" />
+            {/* <BiCalendarEvent className="h-5 w-5" /> */}
+          </ListItemPrefix>
+          Dasboard
+        </ListItem>
+        <ListItem onClick={() => navigate("/dashboard/users")}>
+          <ListItemPrefix>
+            <FaUsersCog className="h-5 w-5" />
           </ListItemPrefix>
           Users
         </ListItem>

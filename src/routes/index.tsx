@@ -1,19 +1,20 @@
 import { createBrowserRouter, Link } from "react-router-dom";
-import SiteLayout from "../layouts/SiteLayout";
-import HomePage from "../pages/site/HomePage";
-import RootLayout from "../layouts/RootLayout";
-import DashboardLayout from "../layouts/DashboardLayout";
-import DashboardHomePage from "../pages/dashboard/DashboardHomePage";
-import LoginPage from "../pages/site/LoginPage";
-import TestPage from "../pages/dashboard/TestPage";
 import ProtectedRoute from "../components/ProtectedRoute";
 import AnimatePage from "../components/route-animation/AnimatePage";
+import DashboardLayout from "../layouts/DashboardLayout";
+import RootLayout from "../layouts/RootLayout";
+import SiteLayout from "../layouts/SiteLayout";
+import AddEventPage from "../pages/dashboard/AddEventPage";
+import DashboardHomePage from "../pages/dashboard/DashboardHomePage";
+import TestPage from "../pages/dashboard/TestPage";
+import UsersPage from "../pages/dashboard/UsersPage";
+import EventsPage from "../pages/site/EventsPage";
+import HomePage from "../pages/site/HomePage";
+import LoginPage from "../pages/site/LoginPage";
 import MapPage from "../pages/site/MapPage";
 import NewsPage from "../pages/site/NewsPage";
-import EventsPage from "../pages/site/EventsPage";
-import TourismPage from "../pages/site/TourismPage";
 import ServicesPage from "../pages/site/ServicesPage";
-import AddEventPage from "../pages/dashboard/AddEventPage";
+import TourismPage from "../pages/site/TourismPage";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
               {
                 path: "add-event",
                 element: <AddEventPage />,
+              },
+              {
+                path: "users",
+                element: <UsersPage />,
               },
               {
                 path: "test",
