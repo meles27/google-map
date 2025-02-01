@@ -1,7 +1,4 @@
-import {
-  Cog6ToothIcon,
-  PowerIcon
-} from "@heroicons/react/24/solid";
+import { Cog6ToothIcon, PowerIcon } from "@heroicons/react/24/solid";
 import {
   Button,
   Card,
@@ -41,7 +38,7 @@ export default function Sidebar() {
           <ListItemPrefix>
             <BiCalendarEvent className="h-5 w-5" />
           </ListItemPrefix>
-          Events
+          Users
         </ListItem>
         <ListItem onClick={() => navigate("/dashboard/settings")}>
           <ListItemPrefix>

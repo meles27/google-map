@@ -21,7 +21,7 @@ const EventsPage: React.FC = () => {
                   <div className="order-1 w-5/12" />
                   <div className="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-12 h-12 rounded-full">
                     <h1 className="mx-auto font-semibold text-lg text-white">
-                      1
+                      {index + 1}
                     </h1>
                   </div>
                   <div className="order-1 bg-gray-400 rounded-lg shadow-xl w-5/12 px-6 py-4">
@@ -31,6 +31,9 @@ const EventsPage: React.FC = () => {
                     <p className="text-gray-700 leading-tight">
                       {event.description}
                     </p>
+                    <p className="leading-tight py-md text-primary">
+                      {event.date?.slice(0, 10)}
+                    </p>
                   </div>
                 </div>
               ) : (
@@ -38,7 +41,7 @@ const EventsPage: React.FC = () => {
                   <div className="order-1 w-5/12" />
                   <div className="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-12 h-12 rounded-full">
                     <h1 className="mx-auto font-semibold text-lg text-white">
-                      2
+                      {index + 1}
                     </h1>
                   </div>
                   <div className="order-1 bg-gray-400 rounded-lg shadow-xl w-5/12 px-6 py-4">
@@ -47,6 +50,9 @@ const EventsPage: React.FC = () => {
                     </h3>
                     <p className="text-gray-700 leading-tight">
                       {event.description}
+                    </p>
+                    <p className="leading-tight py-md text-primary">
+                      {event.date?.slice(0, 10)}
                     </p>
                   </div>
                 </div>

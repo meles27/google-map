@@ -18,8 +18,8 @@ const ServicesPage: React.FC = () => {
   const [searchParams, setSearchParams] = useState({
     category: "",
   });
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const servicesResonse = useListServicesQuery(searchParams);
 
   return (
@@ -30,14 +30,17 @@ const ServicesPage: React.FC = () => {
         <div>error</div>
       ) : (
         <div className="flex flex-col gap-md">
-          <Typography variant="h3" className="ml-md">List of Services</Typography>
+          <Typography variant="h3" className="ml-md">
+            List of Services
+          </Typography>
           <div className="grid grid-cols-2 gap-md">
-            {servicesResonse.data?.map((service) => (
+            {servicesResonse.data?.map((service, index) => (
               <Card className="mt-6 w-96">
                 <CardHeader color="blue-gray" className="relative h-56">
                   <img
-                    src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+                    src={`/services/image- (${index + 1}).jpg`}
                     alt="card-image"
+                    className="block w-full h-full"
                   />
                 </CardHeader>
                 <CardBody>
@@ -47,10 +50,14 @@ const ServicesPage: React.FC = () => {
                   <Typography>{service.description}</Typography>
                 </CardBody>
                 <CardFooter className="pt-0">
-                  <Button onClick={()=>{
-                    dispatch(setActivePlace(service.name))
-                    navigate(`/map`)
-                  }}>Locate</Button>
+                  <Button
+                    onClick={() => {
+                      dispatch(setActivePlace(service.name));
+                      navigate(`/map`);
+                    }}
+                  >
+                    Locate
+                  </Button>
                 </CardFooter>
               </Card>
             ))}

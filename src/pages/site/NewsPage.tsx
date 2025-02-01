@@ -41,7 +41,7 @@ const NewsPage: React.FC = () => {
                 Loading ........ <Spinner />
               </div>
             )}
-            {newsResponse.data?.map((news) => {
+            {newsResponse.data?.map((news, index) => {
               return (
                 <div
                   className="relative flex flex-col my-6 bg-white shadow-sm border border-neutral-200 rounded-lg w-96 hover:cursor-pointer"
@@ -51,9 +51,14 @@ const NewsPage: React.FC = () => {
                   }}
                 >
                   <div className="relative h-56 m-2.5 overflow-hidden text-white rounded-md">
-                    <img
+                    {/* <img
                       src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
                       alt="card-image"
+                    /> */}
+                    <img
+                      src={`/services/image- (${index + 1}).jpg`}
+                      alt="card-image"
+                      className="block w-full h-full"
                     />
                   </div>
                   <div className="p-4">
@@ -83,32 +88,30 @@ const NewsPage: React.FC = () => {
             className="h-screen overflow-auto"
           >
             <DialogBody>
-            <div
-                  className="relative flex flex-col my-6 bg-white shadow-sm border border-neutral-200 rounded-lg w-96 hover:cursor-pointer"
-                >
-                  <div className="relative h-56 m-2.5 overflow-hidden text-white rounded-md">
-                    <img
-                      src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-                      alt="card-image"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h6 className="mb-2 text-neutral-800 text-xl font-semibold">
-                      {newsRef.current?.title}
-                    </h6>
-                    <p className="text-neutral-600 leading-normal font-light">
-                      {newsRef.current?.content}
-                    </p>
-                  </div>
-                  <div className="px-4 pb-4 pt-0 mt-2">
-                    <button
-                      className="rounded-md bg-neutral-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-neutral-700 focus:shadow-none active:bg-neutral-700 hover:bg-neutral-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                      type="button"
-                    >
-                      Read more
-                    </button>
-                  </div>
+              <div className="relative flex flex-col my-6 bg-white shadow-sm border border-neutral-200 rounded-lg w-96 hover:cursor-pointer">
+                <div className="relative h-56 m-2.5 overflow-hidden text-white rounded-md">
+                  <img
+                    src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+                    alt="card-image"
+                  />
                 </div>
+                <div className="p-4">
+                  <h6 className="mb-2 text-neutral-800 text-xl font-semibold">
+                    {newsRef.current?.title}
+                  </h6>
+                  <p className="text-neutral-600 leading-normal font-light">
+                    {newsRef.current?.content}
+                  </p>
+                </div>
+                <div className="px-4 pb-4 pt-0 mt-2">
+                  <button
+                    className="rounded-md bg-neutral-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-neutral-700 focus:shadow-none active:bg-neutral-700 hover:bg-neutral-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    type="button"
+                  >
+                    Read more
+                  </button>
+                </div>
+              </div>
             </DialogBody>
           </Dialog>
         </section>

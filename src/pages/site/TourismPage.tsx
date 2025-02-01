@@ -13,16 +13,17 @@ const TourismPage: React.FC = () => {
         <div>error</div>
       ) : (
         <div className="grid grid-cols-2 gap-md p-md">
-          {tourismsResonse.data?.map((tourism) => (
+          {tourismsResonse.data?.map((tourism, index) => (
             <div
               className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white hover:cursor-pointer"
               key={tourism.id}
             >
               <div className="w-full md:w-1/3 bg-white grid place-items-center">
+                {/* <img src="/no-image.jpg" className="rounded-xl" /> */}
                 <img
-                  src="https://images.unsplash.com/photo-1508528075895-be7a6cabd37a?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1vdW50YWluJTIwd2F0ZXJmYWxsfGVufDB8fDB8fHww"
-                  alt="tailwind logo"
-                  className="rounded-xl"
+                  src={`/services/image- (${index + 1}).jpg`}
+                  alt="card-image"
+                  className="block w-full h-full"
                 />
               </div>
               <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3">
@@ -71,7 +72,7 @@ const TourismPage: React.FC = () => {
                   {tourism.description}
                 </p>
                 <p className="text-xl font-black text-gray-800">
-                  $110
+                  ${Math.ceil(3 * (Math.random() * 110))}
                   <span className="font-normal text-gray-600 text-base">
                     /night
                   </span>
