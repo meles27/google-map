@@ -1,4 +1,4 @@
-interface NewsArticle {
+export interface NewsArticle {
   id: number;
   title: string;
   content: string;
@@ -7,8 +7,7 @@ interface NewsArticle {
   createdAt: string; // ISO 8601 format
   updatedAt: string; // ISO 8601 format
 }
-
-interface UpcomingEvent {
+export interface UpcomingEvent {
   id: number;
   title: string;
   description: string;
@@ -19,14 +18,14 @@ interface UpcomingEvent {
   updatedAt: string; // ISO 8601 format
 }
 
-interface EventRegistration {
+export interface EventRegistration {
   UserId: number;
   EventId: number;
   createdAt: string; // ISO 8601 format
   updatedAt: string; // ISO 8601 format
 }
 
-interface RegisteredEvent {
+export interface RegisteredEvent {
   id: number;
   title: string;
   description: string;

@@ -3,6 +3,7 @@ import React from "react";
 import { useListDashboardQuery } from "../../services/dashboardApi";
 import EventsCard from "./EventsCard";
 import NewsListComp from "./NewsListComp";
+import RegisterdEvents from "./RegisterdEvents";
 
 const DashboardHomePage: React.FC = () => {
   const dashboardResponse = useListDashboardQuery();
@@ -97,8 +98,13 @@ const DashboardHomePage: React.FC = () => {
         </div>
       </div>
       <div className="flex gap-md">
-        <EventsCard />
-        <NewsListComp />
+        <EventsCard event={dashboardResponse.data?.upcomingEvents || []} />
+        <NewsListComp newsArticle={dashboardResponse.data?.news || []} />
+      </div>
+      <div className="flex">
+        <RegisterdEvents
+          registed={dashboardResponse.data?.registeredEvents || []}
+        />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
-import { Card, CardBody, Typography, Avatar } from "@material-tailwind/react";
+import { Avatar, Card, CardBody, Typography } from "@material-tailwind/react";
+import { NewsArticle } from "../../types/dashboard_types";
 
 const customers = [
   {
@@ -38,43 +39,46 @@ const customers = [
   },
 ];
 
-export default function NewsListComp() {
+type EventsCardProps = {
+  newsArticle: NewsArticle[];
+};
+const NewsListComp: React.FC<EventsCardProps> = (props) => {
   return (
-    <Card className="w-96 shadow-2xl shadow-neutral-500">
+    <Card className="flex-1 shadow-2xl shadow-neutral-500 bg-neutral-300 !text-white">
       <CardBody>
         <div className="mb-4 flex items-center justify-between">
           <Typography variant="h5" color="blue-gray" className="">
-            Latest Customers
+            Latest Articles(News)
           </Typography>
           <Typography
             as="a"
             href="#"
             variant="small"
             color="blue"
+            hidden
             className="font-bold"
           >
             View all
           </Typography>
         </div>
         <div className="divide-y divide-gray-200">
-          {customers.map(({ name, email, price, image }, index) => (
+          {props.newsArticle.map((article, index) => (
             <div
               key={index}
               className="flex items-center justify-between pb-3 pt-3 last:pb-0"
             >
               <div className="flex items-center gap-x-3">
-                <Avatar size="sm" src={image} alt={name} />
                 <div>
                   <Typography color="blue-gray" variant="h6">
-                    {name}
+                    {article.title}
                   </Typography>
                   <Typography variant="small" color="gray">
-                    {email}
+                    {article.content.slice(0, 100)}...
                   </Typography>
                 </div>
               </div>
               <Typography color="blue-gray" variant="h6">
-                ${price}
+                {article.publishDate.slice(0, 10)}
               </Typography>
             </div>
           ))}
@@ -82,4 +86,6 @@ export default function NewsListComp() {
       </CardBody>
     </Card>
   );
-}
+};
+
+export default NewsListComp;

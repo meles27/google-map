@@ -1,4 +1,5 @@
-import { Card, CardBody, Typography, Avatar } from "@material-tailwind/react";
+import { Avatar, Card, CardBody, Typography } from "@material-tailwind/react";
+import { UpcomingEvent } from "../../types/dashboard_types";
 
 const customers = [
   {
@@ -38,43 +39,47 @@ const customers = [
   },
 ];
 
-export default function EventsCard() {
+type EventsCardProps = {
+  event: UpcomingEvent[];
+};
+const EventsCard: React.FC<EventsCardProps> = (props) => {
+  console.log(props);
   return (
-    <Card className="w-96 shadow-2xl shadow-neutral-500">
+    <Card className="flex-1 shadow-2xl shadow-neutral-500">
       <CardBody>
         <div className="mb-4 flex items-center justify-between">
           <Typography variant="h5" color="blue-gray" className="">
-            Latest Customers
+            Latest Events
           </Typography>
           <Typography
             as="a"
             href="#"
             variant="small"
             color="blue"
+            hidden
             className="font-bold"
           >
             View all
           </Typography>
         </div>
         <div className="divide-y divide-gray-200">
-          {customers.map(({ name, email, price, image }, index) => (
+          {props.event.map((event, index) => (
             <div
-              key={index}
+              key={event.id}
               className="flex items-center justify-between pb-3 pt-3 last:pb-0"
             >
               <div className="flex items-center gap-x-3">
-                <Avatar size="sm" src={image} alt={name} />
                 <div>
                   <Typography color="blue-gray" variant="h6">
-                    {name}
+                    {event.title}
                   </Typography>
                   <Typography variant="small" color="gray">
-                    {email}
+                    {event.location}
                   </Typography>
                 </div>
               </div>
               <Typography color="blue-gray" variant="h6">
-                ${price}
+                {event.updatedAt.slice(0, 10)}
               </Typography>
             </div>
           ))}
@@ -82,4 +87,6 @@ export default function EventsCard() {
       </CardBody>
     </Card>
   );
-}
+};
+
+export default EventsCard;
