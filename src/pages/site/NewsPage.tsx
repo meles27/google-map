@@ -41,7 +41,7 @@ const NewsPage: React.FC = () => {
                 Loading ........ <Spinner />
               </div>
             )}
-            {newsResponse.data?.map((news, index) => {
+            {newsResponse.data?.results.map((news, index) => {
               return (
                 <div
                   className="relative flex flex-col my-6 bg-white shadow-sm border border-neutral-200 rounded-lg w-96 hover:cursor-pointer"

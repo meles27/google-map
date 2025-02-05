@@ -74,7 +74,7 @@ const ServicesPage: React.FC = () => {
             List of Services
           </Typography>
           <div className="grid grid-cols-2 gap-md">
-            {servicesResonse.data?.map((service) => (
+            {servicesResonse.data?.results.map((service) => (
               <Card className="mt-6 w-96">
                 <CardHeader color="blue-gray" className="relative h-56">
                   <img

@@ -1,19 +1,15 @@
-import { Spinner } from "@material-tailwind/react";
+// import { Spinner } from "@material-tailwind/react";
 import { AnimatePresence } from "framer-motion";
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Outlet, useLocation } from "react-router-dom";
-import { useListBusinessQuery } from "../services/businessApi";
-import {
-  useListServicesQuery
-} from "../services/serviceApi";
-import { useListTourismsQuery } from "../services/tourismApi";
-import {
-  addCulturalPlaces,
-  closeAddPlace
-} from "../slices/cultureSlice";
-import { closeDashboardSidebar } from "../slices/dashboardSlice";
-import { closeNavbar } from "../slices/siteSlice";
+import { Outlet } from "react-router-dom";
+// import React, { useEffect } from "react";
+// import { useDispatch } from "react-redux";
+// import { Outlet, useLocation } from "react-router-dom";
+// import { useListBusinessQuery } from "../services/businessApi";
+// import { useListServicesQuery } from "../services/serviceApi";
+// import { useListTourismsQuery } from "../services/tourismApi";
+// import { addCulturalPlaces, closeAddPlace } from "../slices/cultureSlice";
+// import { closeDashboardSidebar } from "../slices/dashboardSlice";
+// import { closeNavbar } from "../slices/siteSlice";
 import { ToastContainer } from "react-toastify";
 
 /**
@@ -32,47 +28,47 @@ import { ToastContainer } from "react-toastify";
  * component instead of the outlet.
  */
 const RootLayout: React.FC = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // useJwtTokenExpiration();
-  const location = useLocation();
-  console.log("re-render is occured");
-  useEffect(() => {
-    dispatch(closeNavbar());
-    dispatch(closeDashboardSidebar());
-    dispatch(closeAddPlace());
-  }, [dispatch, location]);
+  // const location = useLocation();
+  // console.log("re-render is occured");
+  // useEffect(() => {
+  //   dispatch(closeNavbar());
+  //   dispatch(closeDashboardSidebar());
+  //   dispatch(closeAddPlace());
+  // }, [dispatch, location]);
 
-  const services = useListServicesQuery({
-    category: "",
-  });
-  const tourisms = useListTourismsQuery();
-  const businesses = useListBusinessQuery();
+  // const services = useListServicesQuery({
+  //   category: "",
+  // });
+  // const tourisms = useListTourismsQuery();
+  // const businesses = useListBusinessQuery();
 
-  useEffect(() => {
-    if (tourisms.isSuccess) {
-      dispatch(addCulturalPlaces([...tourisms.data]));
-    }
-  }, [tourisms.isSuccess, tourisms.data, dispatch]);
+  // useEffect(() => {
+  //   if (tourisms.isSuccess) {
+  //     dispatch(addCulturalPlaces([...tourisms.data]));
+  //   }
+  // }, [tourisms.isSuccess, tourisms.data, dispatch]);
 
-  useEffect(() => {
-    if (businesses.isSuccess) {
-      console.log("businesses", businesses.data);
-      dispatch(addCulturalPlaces(businesses.data));
-    }
-  }, [businesses.data, businesses.isSuccess, dispatch]);
+  // useEffect(() => {
+  //   if (businesses.isSuccess) {
+  //     console.log("businesses", businesses.data);
+  //     dispatch(addCulturalPlaces(businesses.data));
+  //   }
+  // }, [businesses.data, businesses.isSuccess, dispatch]);
 
-  useEffect(() => {
-    if (services.isSuccess) {
-      dispatch(addCulturalPlaces([...services.data]));
-    }
-  }, [dispatch, services.data, services.isSuccess]);
-  if (services.isLoading || tourisms.isLoading || businesses.isLoading) {
-    return (
-      <div className="flex w-screen h-screen items-center justify-center">
-        <Spinner />
-      </div>
-    );
-  }
+  // useEffect(() => {
+  //   if (services.isSuccess) {
+  //     dispatch(addCulturalPlaces([...services.data]));
+  //   }
+  // }, [dispatch, services.data, services.isSuccess]);
+  // if (services.isLoading || tourisms.isLoading || businesses.isLoading) {
+  //   return (
+  //     <div className="flex w-screen h-screen items-center justify-center">
+  //       <Spinner />
+  //     </div>
+  //   );
+  // }
 
   return (
     <AnimatePresence>

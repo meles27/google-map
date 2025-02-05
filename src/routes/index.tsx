@@ -8,6 +8,7 @@ import AddEventPage from "../pages/dashboard/AddEventPage";
 import DashboardHomePage from "../pages/dashboard/DashboardHomePage";
 import TestPage from "../pages/dashboard/TestPage";
 import UsersPage from "../pages/dashboard/UsersPage";
+import BusinessPage from "../pages/site/BusinessPage";
 import EventsPage from "../pages/site/EventsPage";
 import HomePage from "../pages/site/HomePage";
 import LoginPage from "../pages/site/LoginPage";
@@ -47,12 +48,16 @@ const router = createBrowserRouter([
             element: <EventsPage />,
           },
           {
-            path: "/tourism",
+            path: "/tourisms",
             element: <TourismPage />,
           },
           {
             path: "/services",
             element: <ServicesPage />,
+          },
+          {
+            path: "/businesses",
+            element: <BusinessPage />,
           },
           {
             path: "*",

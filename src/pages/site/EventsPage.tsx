@@ -18,7 +18,7 @@ const EventsPage: React.FC = () => {
         <div className="container w-full px-4 py-8">
           <div className="relative wrap overflow-hidden">
             <div className="border-2-2 absolute border-opacity-20 border-gray-700 h-full border left-1/2" />
-            {eventsResponse.data?.map((event, index) =>
+            {eventsResponse.data?.results.map((event, index) =>
               index % 2 == 0 ? (
                 <div className="mb-8 flex justify-between items-center w-full right-timeline">
                   <div className="order-1 w-5/12" />

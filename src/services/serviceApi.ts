@@ -1,7 +1,11 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi } from "@reduxjs/toolkit/query/react";
 import config from "../config";
-import { CreateFeedbackInput, ServicesEntityType } from "../types/entity_types";
+import {
+  CreateFeedbackInput,
+  PaginatedResponse,
+  ServicesEntityType,
+} from "../types/entity_types";
 import axiosBaseQuery from "../utils/baseQuery/axiosBaseQuery";
 
 // Define a service using a base URL and expected endpoints
@@ -9,7 +13,10 @@ export const serviceApi = createApi({
   reducerPath: "serviceApi",
   baseQuery: axiosBaseQuery({ baseUrl: config.baseUrl }),
   endpoints: (builder) => ({
-    listServices: builder.query<ServicesEntityType[], { category: string }>({
+    listServices: builder.query<
+      PaginatedResponse<ServicesEntityType>,
+      { category: string }
+    >({
       query: (searchParams) => {
         return {
           url: config.SERVICES_URL,
@@ -27,7 +34,7 @@ export const serviceApi = createApi({
         return {
           url: config.SERVICES_FEEDBACKS_URL.replace(
             "${serviceId}",
-            searchParams.serviceId
+            searchParams.serviceId.toString()
           ),
           method: "GET",
           params: searchParams,
@@ -41,7 +48,10 @@ export const serviceApi = createApi({
     >({
       query: ({ serviceId, ...feedback }) => {
         return {
-          url: config.SERVICES_FEEDBACKS_URL.replace("${serviceId}", serviceId),
+          url: config.SERVICES_FEEDBACKS_URL.replace(
+            "${serviceId}",
+            serviceId?.toString()
+          ),
           method: "POST",
           data: feedback,
         };

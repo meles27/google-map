@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useListTourismsQuery } from "../../services/tourismApi";
 import SpinnerPage from "../SpinnerPage";
 
 const TourismPage: React.FC = () => {
   const tourismsResonse = useListTourismsQuery();
+
+  useEffect(() => {
+    if (tourismsResonse.isSuccess) {
+      console.log("response........", tourismsResonse.data);
+    }
+  }, [tourismsResonse.data, tourismsResonse.isSuccess]);
 
   return (
     <div className="flex w-full h-full">
@@ -13,7 +19,7 @@ const TourismPage: React.FC = () => {
         <div>error</div>
       ) : (
         <div className="grid grid-cols-2 gap-md p-md">
-          {tourismsResonse.data?.map((tourism, index) => (
+          {tourismsResonse.data?.results.map((tourism, index) => (
             <div
               className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white hover:cursor-pointer"
               key={tourism.id}
@@ -21,7 +27,7 @@ const TourismPage: React.FC = () => {
               <div className="w-full md:w-1/3 bg-white grid place-items-center">
                 {/* <img src="/no-image.jpg" className="rounded-xl" /> */}
                 <img
-                  src={`/services/image- (${index + 1}).jpg`}
+                  src={tourism.image}
                   alt="card-image"
                   className="block w-full h-full"
                 />

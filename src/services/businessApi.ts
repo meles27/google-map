@@ -1,15 +1,15 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi } from "@reduxjs/toolkit/query/react";
 import config from "../config";
+import { BusinessEntityType, PaginatedResponse } from "../types/entity_types";
 import axiosBaseQuery from "../utils/baseQuery/axiosBaseQuery";
-import { BusinessEntityType } from "../types/entity_types";
 
 // Define a service using a base URL and expected endpoints
 export const businessApi = createApi({
   reducerPath: "businessApi",
   baseQuery: axiosBaseQuery({ baseUrl: config.baseUrl }),
   endpoints: (builder) => ({
-    listBusiness: builder.query<BusinessEntityType[], void>({
+    listBusiness: builder.query<PaginatedResponse<BusinessEntityType>, void>({
       query: () => {
         return {
           url: config.BUSINESS_URL,

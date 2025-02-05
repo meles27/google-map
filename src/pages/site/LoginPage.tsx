@@ -12,16 +12,16 @@ import { useLocalStorage } from "usehooks-ts";
 import withAnimation from "../../components/route-animation/withAnimation";
 import config from "../../config";
 import { useJwtTokenMutation } from "../../services/authApi";
-import { LoginType } from "../../types/types";
+import { JwtTokenIface, LoginType } from "../../types/types";
 import { isAuthenticated } from "../../utils/auth";
 
-const LoginPage = () => {
+const LoginPage = withAnimation(() => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const form = useForm({ defaultValues: { email: "", password: "" } });
+  const form = useForm({ defaultValues: { username: "", password: "" } });
   const [searchParams] = useSearchParams(location.search);
-  const [token, setToken] = useLocalStorage<string>(
+  const [token, setToken] = useLocalStorage<JwtTokenIface>(
     config.JWT_KEY_NAME,
     config.JWT_DEFAULT_VALUE
   );
@@ -30,13 +30,13 @@ const LoginPage = () => {
     console.log("this is the submit stage", data);
     login({
       password: data.password,
-      email: data.email,
+      username: data.username,
     });
   };
 
   useEffect(() => {
     if (loginResponse.isSuccess) {
-      setToken(loginResponse.data.token);
+      setToken(loginResponse.data);
       navigate(
         searchParams.get("from")
           ? searchParams.get("from") + location.hash
@@ -50,7 +50,7 @@ const LoginPage = () => {
       console.log(loginResponse.error, "------------");
       if ((loginResponse.error as any).status === 401) {
         Object.keys((loginResponse.error as any).data).forEach((key) => {
-          if (key === "email" || key === "password") {
+          if (key === "username" || key === "password") {
             return;
           }
           form.setError("root", {
@@ -64,11 +64,12 @@ const LoginPage = () => {
         });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginResponse.isSuccess, loginResponse.isError]);
 
   return (
     <>
-      {isAuthenticated(token) ? (
+      {isAuthenticated(token.access!) ? (
         <Navigate
           to={
             searchParams.get("from")
@@ -93,14 +94,17 @@ const LoginPage = () => {
                   >
                     <Input
                       crossOrigin={""}
-                      {...form.register("email", {
-                        required: "email is required",
+                      {...form.register("username", {
+                        required: "username is required",
                       })}
                       defaultValue="admin@mekelle.app"
                       variant="standard"
-                      label="email"
+                      label="username"
                     />
-                    <ErrorMessage errors={form.formState.errors} name="email" />
+                    <ErrorMessage
+                      errors={form.formState.errors}
+                      name="username"
+                    />
                     <Input
                       crossOrigin={""}
                       {...form.register("password", {
@@ -124,7 +128,7 @@ const LoginPage = () => {
                     </div>
                     {loginResponse.isError && (
                       <div className="text-red-500 p-sm shadow-xl rounded-xl">
-                        {JSON.stringify(loginResponse.error?.data)}
+                        {JSON.stringify(loginResponse.error)}
                       </div>
                     )}
 
@@ -210,6 +214,6 @@ const LoginPage = () => {
       )}
     </>
   );
-};
+});
 
-export default withAnimation(LoginPage);
+export default LoginPage;

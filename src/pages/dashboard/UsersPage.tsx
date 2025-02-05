@@ -10,15 +10,18 @@ import {
   Chip,
   IconButton,
   Input,
+  Spinner,
   Tab,
   Tabs,
   TabsHeader,
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
+import { useEffect } from "react";
 import { MdEventAvailable } from "react-icons/md";
-import withAnimation from "../../components/route-animation/withAnimation";
 import { useNavigate } from "react-router-dom";
+import withAnimation from "../../components/route-animation/withAnimation";
+import { useListUsersQuery } from "../../services/authApi";
 
 const TABS = [
   {
@@ -86,8 +89,30 @@ const TABLE_ROWS = [
 ];
 
 const UsersPage = withAnimation(() => {
+  // const usersResponse =
   const navigate = useNavigate();
 
+  const usersResponse = useListUsersQuery();
+
+  useEffect(() => {
+    if (usersResponse.isSuccess) {
+      console.log("usersResponse", usersResponse.data);
+    }
+  }, [usersResponse.data, usersResponse.isSuccess]);
+
+  if (usersResponse.isLoading) {
+    return (
+      <div className="flex items-center justify-center w-full h-full">
+        <Spinner />
+      </div>
+    );
+  } else if (usersResponse.isError) {
+    return (
+      <div className="flex items-center justify-center w-full h-full">
+        {JSON.stringify(usersResponse.error)}
+      </div>
+    );
+  }
   return (
     <Card className="h-full w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -150,84 +175,100 @@ const UsersPage = withAnimation(() => {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ img, name, email, job, org, online, date }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
-                const classes = isLast
-                  ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
+            {usersResponse.data?.results.map((user, index) => {
+              const isLast = index === TABLE_ROWS.length - 1;
+              const classes = isLast
+                ? "p-4"
+                : "p-4 border-b border-blue-gray-50";
 
-                return (
-                  <tr key={name}>
-                    <td className={classes}>
-                      <div className="flex items-center gap-3">
-                        <Avatar src={img} alt={name} size="sm" />
-                        <div className="flex flex-col">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {name}
-                          </Typography>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal opacity-70"
-                          >
-                            {email}
-                          </Typography>
-                        </div>
-                      </div>
-                    </td>
-                    <td className={classes}>
+              return (
+                <tr key={name}>
+                  <td className={classes}>
+                    <div className="flex items-center gap-3">
+                      {/* <Avatar src={img} alt={name} size="sm" /> */}
                       <div className="flex flex-col">
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {job}
+                          {user.first_name + " " + user.last_name}
                         </Typography>
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {org}
+                          {user.username}
                         </Typography>
                       </div>
-                    </td>
-                    <td className={classes}>
-                      <div className="w-max">
-                        <Chip
-                          variant="ghost"
-                          size="sm"
-                          value={online ? "online" : "offline"}
-                          color={online ? "green" : "blue-gray"}
-                        />
-                      </div>
-                    </td>
-                    <td className={classes}>
+                    </div>
+                  </td>
+                  <td className={classes}>
+                    <div className="flex flex-col">
                       <Typography
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {date}
+                        <span className="flex">
+                          <Chip
+                            variant="ghost"
+                            color={
+                              user.is_superuser
+                                ? "blue"
+                                : user.is_staff
+                                ? "Admin"
+                                : "green"
+                            }
+                            value={
+                              user.is_superuser
+                                ? "Super User"
+                                : user.is_staff
+                                ? "Admin"
+                                : "User"
+                            }
+                          />
+                        </span>
                       </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Tooltip content="Edit User">
-                        <IconButton variant="text">
-                          <PencilIcon className="h-4 w-4" />
-                        </IconButton>
-                      </Tooltip>
-                    </td>
-                  </tr>
-                );
-              }
-            )}
+                      {/* <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal opacity-70"
+                        >
+                          {org}
+                        </Typography> */}
+                    </div>
+                  </td>
+                  <td className={classes}>
+                    <div className="w-max">
+                      <Chip
+                        variant="ghost"
+                        size="sm"
+                        value={user.is_active ? "active" : "suspended"}
+                        color={user.is_active ? "green" : "blue-gray"}
+                      />
+                    </div>
+                  </td>
+                  <td className={classes}>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {user.date_joined}
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    <Tooltip content="Edit User">
+                      <IconButton variant="text">
+                        <PencilIcon className="h-4 w-4" />
+                      </IconButton>
+                    </Tooltip>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </CardBody>

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Button,
   Drawer,
@@ -6,8 +5,9 @@ import {
   List,
   ListItem,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { RootState } from "../../app/store";
 import { closeNavbar } from "../../slices/siteSlice";
 
@@ -34,12 +34,17 @@ const navLinks: { title: string; path: string; type?: "button" | "link" }[] = [
   },
   {
     title: "Travel's",
-    path: "/tourism",
+    path: "/tourisms",
     type: "link",
   },
   {
     title: "services",
     path: "/services",
+    type: "link",
+  },
+  {
+    title: "businesses",
+    path: "/businesses",
     type: "link",
   },
   {

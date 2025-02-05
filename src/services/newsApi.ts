@@ -1,18 +1,18 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi } from "@reduxjs/toolkit/query/react";
 import config from "../config";
+import { NewsEntityType, PaginatedResponse } from "../types/entity_types";
 import axiosBaseQuery from "../utils/baseQuery/axiosBaseQuery";
-import { NewsEntityType } from "../types/entity_types";
 
 // Define a service using a base URL and expected endpoints
 export const newsApi = createApi({
   reducerPath: "newsApi",
   baseQuery: axiosBaseQuery({ baseUrl: config.baseUrl }),
   endpoints: (builder) => ({
-    listNews: builder.query<NewsEntityType[], { q: string }>({
+    listNews: builder.query<PaginatedResponse<NewsEntityType>, { q: string }>({
       query: ({ q }) => {
         return {
-          url: q ? config.ALL_NEWS_WITH_QUERY_URL : config.ALL_NEWS_URL,
+          url: config.ALL_NEWS_URL,
           method: "GET",
           params: { q },
         };
