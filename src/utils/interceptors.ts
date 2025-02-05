@@ -3,13 +3,14 @@ import settings from "../config";
 
 const axiosInstance = axios.create({
   baseURL: settings.baseUrl,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  // headers: {
+  //   "Content-Type": "application/json",
+  // },
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
+    console.log(config.headers);
     const token = localStorage.getItem(settings.JWT_KEY_NAME); // Change as needed
     console.log("token is", token);
     if (token) {

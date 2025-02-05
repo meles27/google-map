@@ -7,7 +7,6 @@ const DesktopSidebar: React.FC = () => {
     <Card
       shadow={false}
       className="h-full w-full shadow-none rounded-none"
-      placeholder={true}
       onPointerEnterCapture={() => {}}
       onPointerLeaveCapture={() => {}}
     >

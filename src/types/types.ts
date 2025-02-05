@@ -1,5 +1,9 @@
 import { JwtPayload } from "jwt-decode";
 
+export type GeneralErrorType = Record<
+  string,
+  number | string | object | Record<string, number | string | object>
+>;
 export interface JwtTokenIface {
   access?: string;
   refresh?: string;

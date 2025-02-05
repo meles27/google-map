@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import EmptyList from "../../components/EmptyList";
 import {
   useCreateFeedbackMutation,
   useListServicesQuery,
@@ -74,50 +75,56 @@ const ServicesPage: React.FC = () => {
             List of Services
           </Typography>
           <div className="grid grid-cols-2 gap-md">
-            {servicesResonse.data?.results.map((service) => (
-              <Card className="mt-6 w-96">
-                <CardHeader color="blue-gray" className="relative h-56">
-                  <img
-                    src={
-                      Math.random() > 0.6
-                        ? "/no-image.jpg"
-                        : Math.random() < 0.5
-                        ? "/services/one.jpg"
-                        : "/services/two.jpg"
-                    }
-                    alt="card-image"
-                  />
-                </CardHeader>
-                <CardBody>
-                  <Typography variant="h5" color="blue-gray" className="mb-2">
-                    {service.name}
-                  </Typography>
-                  <div className="flex items-baseline gap-sm">
-                    <Rating value={5} color="yellow" />
-                    <Typography variant="h3">{5}</Typography>
-                  </div>
-                  <Typography>{service.description}</Typography>
-                </CardBody>
-                <CardFooter className="flex pt-0 items-center justify-between gap-md">
-                  <Button
-                    onClick={() => {
-                      dispatch(setActivePlace(service.name));
-                      navigate(`/map`);
-                    }}
-                  >
-                    Locate
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      setOpen(true);
-                      serviceRef.current = service;
-                    }}
-                  >
-                    Add Comment
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
+            {servicesResonse.data?.results.length ? (
+              servicesResonse.data?.results.map((service) => (
+                <Card className="mt-6 w-96">
+                  <CardHeader color="blue-gray" className="relative h-56">
+                    <img
+                      src={
+                        Math.random() > 0.6
+                          ? "/no-image.jpg"
+                          : Math.random() < 0.5
+                          ? "/services/one.jpg"
+                          : "/services/two.jpg"
+                      }
+                      alt="card-image"
+                    />
+                  </CardHeader>
+                  <CardBody>
+                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                      {service.name}
+                    </Typography>
+                    <div className="flex items-baseline gap-sm">
+                      <Rating value={5} color="yellow" />
+                      <Typography variant="h3">{5}</Typography>
+                    </div>
+                    <Typography>{service.description}</Typography>
+                  </CardBody>
+                  <CardFooter className="flex pt-0 items-center justify-between gap-md">
+                    <Button
+                      onClick={() => {
+                        dispatch(setActivePlace(service.name));
+                        navigate(`/map`);
+                      }}
+                    >
+                      Locate
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setOpen(true);
+                        serviceRef.current = service;
+                      }}
+                    >
+                      Add Comment
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))
+            ) : (
+              <div className="flex h-full pt-xl">
+                <EmptyList itemName="Event" />
+              </div>
+            )}
           </div>
           <Dialog open={open} handler={() => setOpen((state) => !state)}>
             <div className="flex items-center justify-between">

@@ -12,8 +12,10 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useState } from "react";
+import { BsCalendar2EventFill } from "react-icons/bs";
 import { FaUsersCog } from "react-icons/fa";
-import { MdDashboard } from "react-icons/md";
+import { GiDetour } from "react-icons/gi";
+import { MdBusiness, MdDashboard, MdMedicalServices } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "usehooks-ts";
 
@@ -21,7 +23,7 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [token, setToken, clearToken] = useLocalStorage("token", null);
+  const [, , clearToken] = useLocalStorage("token", null);
   const handleLogout = () => {
     clearToken();
     navigate("/signin");
@@ -47,6 +49,31 @@ export default function Sidebar() {
             <FaUsersCog className="h-5 w-5" />
           </ListItemPrefix>
           Users
+        </ListItem>
+        <ListItem onClick={() => navigate("/dashboard/events")}>
+          <ListItemPrefix>
+            <BsCalendar2EventFill className="h-5 w-5" />{" "}
+          </ListItemPrefix>
+          Events
+        </ListItem>
+        <ListItem onClick={() => navigate("/dashboard/services")}>
+          <ListItemPrefix>
+            <MdMedicalServices className="h-5 w-5" />
+          </ListItemPrefix>
+          Services
+        </ListItem>
+        <ListItem onClick={() => navigate("/dashboard/businesses")}>
+          <ListItemPrefix>
+            <MdBusiness className="h-5 w-5" />
+          </ListItemPrefix>
+          Business
+        </ListItem>
+        <ListItem onClick={() => navigate("/dashboard/tourisms")}>
+          <ListItemPrefix>
+            <FaUsersCog className="h-5 w-5" />
+            <GiDetour className="w-5 h-5" />{" "}
+          </ListItemPrefix>
+          Tourisms
         </ListItem>
         <ListItem onClick={() => navigate("/dashboard/settings")}>
           <ListItemPrefix>

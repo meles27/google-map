@@ -10,6 +10,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../app/store";
 import { closeNavbar } from "../../slices/siteSlice";
+import config from "../../config";
+import { useLocalStorage } from "usehooks-ts";
+import { JwtTokenIface } from "../../types/types";
+import { isAuthenticated } from "../../utils/auth";
 
 const navLinks: { title: string; path: string; type?: "button" | "link" }[] = [
   {
@@ -47,13 +51,13 @@ const navLinks: { title: string; path: string; type?: "button" | "link" }[] = [
     path: "/businesses",
     type: "link",
   },
-  {
-    title: "dashboard",
-    path: "/dashboard",
-    type: "link",
-  },
 ];
 export const DesktopNavbar: React.FC = () => {
+  const [token] = useLocalStorage<JwtTokenIface>(
+    config.JWT_KEY_NAME,
+    config.JWT_DEFAULT_VALUE
+  );
+
   return (
     <nav className="hidden flex-row items-center gap-2xl lg:flex">
       <ul className="flex flex-row gap-lg">
@@ -68,22 +72,35 @@ export const DesktopNavbar: React.FC = () => {
         )}
       </ul>
       <div className="flex flex-row items-center gap-sm">
-        <Button
-          className="bg-neutral-50 border-secondary p-0"
-          variant="outlined"
-        >
-          <Link
-            className="block w-full h-full text-secondary px-lg py-sm"
-            to="/signin"
-          >
-            Sign In
-          </Link>
-        </Button>
-        <Button className="bg-secondary w-32">
-          <Link className="block w-full h-full text-primary-50" to="/login">
-            Sign up
-          </Link>
-        </Button>
+        {isAuthenticated(token.access || "") ? (
+          <Button className="bg-secondary w-32">
+            <Link
+              className="block w-full h-full text-primary-50"
+              to="/dashboard"
+            >
+              Dashboard
+            </Link>
+          </Button>
+        ) : (
+          <>
+            <Button
+              className="bg-neutral-50 border-secondary p-0"
+              variant="outlined"
+            >
+              <Link
+                className="block w-full h-full text-secondary px-lg py-sm"
+                to="/signin"
+              >
+                Sign In
+              </Link>
+            </Button>
+            <Button className="bg-secondary w-32">
+              <Link className="block w-full h-full text-primary-50" to="/login">
+                Sign up
+              </Link>
+            </Button>
+          </>
+        )}
       </div>
     </nav>
   );

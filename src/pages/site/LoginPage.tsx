@@ -12,7 +12,7 @@ import { useLocalStorage } from "usehooks-ts";
 import withAnimation from "../../components/route-animation/withAnimation";
 import config from "../../config";
 import { useJwtTokenMutation } from "../../services/authApi";
-import { JwtTokenIface, LoginType } from "../../types/types";
+import { GeneralErrorType, JwtTokenIface, LoginType } from "../../types/types";
 import { isAuthenticated } from "../../utils/auth";
 
 const LoginPage = withAnimation(() => {
@@ -48,20 +48,24 @@ const LoginPage = withAnimation(() => {
     }
     if (loginResponse.isError) {
       console.log(loginResponse.error, "------------");
-      if ((loginResponse.error as any).status === 401) {
-        Object.keys((loginResponse.error as any).data).forEach((key) => {
-          if (key === "username" || key === "password") {
-            return;
+      if ((loginResponse.error as GeneralErrorType).status === 401) {
+        Object.keys((loginResponse.error as GeneralErrorType).data).forEach(
+          (key) => {
+            if (key === "username" || key === "password") {
+              return;
+            }
+            form.setError("root", {
+              type: "server",
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              message: (loginResponse.error as any).data[key],
+            });
+            console.log(
+              "this is the message ",
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (loginResponse.error as any).data.detail
+            );
           }
-          form.setError("root", {
-            type: "server",
-            message: (loginResponse.error as any).data[key],
-          });
-          console.log(
-            "this is the message ",
-            (loginResponse.error as any).data.detail
-          );
-        });
+        );
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

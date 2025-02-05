@@ -17,9 +17,18 @@ export const tourismApi = createApi({
         };
       },
     }),
+    createTourisms: builder.mutation<object, TourismEntityType>({
+      query: (tourism) => {
+        return {
+          url: config.TOURISMS_URL,
+          method: "POST",
+          data: tourism,
+        };
+      },
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useListTourismsQuery } = tourismApi;
+export const { useListTourismsQuery, useCreateTourismsMutation } = tourismApi;

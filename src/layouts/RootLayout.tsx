@@ -1,16 +1,12 @@
 // import { Spinner } from "@material-tailwind/react";
 import { AnimatePresence } from "framer-motion";
-import { Outlet } from "react-router-dom";
-// import React, { useEffect } from "react";
-// import { useDispatch } from "react-redux";
-// import { Outlet, useLocation } from "react-router-dom";
-// import { useListBusinessQuery } from "../services/businessApi";
-// import { useListServicesQuery } from "../services/serviceApi";
-// import { useListTourismsQuery } from "../services/tourismApi";
-// import { addCulturalPlaces, closeAddPlace } from "../slices/cultureSlice";
-// import { closeDashboardSidebar } from "../slices/dashboardSlice";
-// import { closeNavbar } from "../slices/siteSlice";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { closeAddPlace } from "../slices/cultureSlice";
+import { closeDashboardSidebar } from "../slices/dashboardSlice";
+import { closeNavbar } from "../slices/siteSlice";
 
 /**
  * This component is the root layout for the application. It uses the
@@ -28,15 +24,15 @@ import { ToastContainer } from "react-toastify";
  * component instead of the outlet.
  */
 const RootLayout: React.FC = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // useJwtTokenExpiration();
-  // const location = useLocation();
-  // console.log("re-render is occured");
-  // useEffect(() => {
-  //   dispatch(closeNavbar());
-  //   dispatch(closeDashboardSidebar());
-  //   dispatch(closeAddPlace());
-  // }, [dispatch, location]);
+  const location = useLocation();
+  console.log("re-render is occured");
+  useEffect(() => {
+    dispatch(closeNavbar());
+    dispatch(closeDashboardSidebar());
+    dispatch(closeAddPlace());
+  }, [dispatch, location]);
 
   // const services = useListServicesQuery({
   //   category: "",

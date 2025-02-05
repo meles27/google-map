@@ -26,6 +26,19 @@ export const serviceApi = createApi({
       },
     }),
 
+    createService: builder.mutation({
+      query: (event) => {
+        return {
+          url: config.SERVICES_URL,
+          method: "POST",
+          data: event,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        };
+      },
+    }),
+
     listFeedbacks: builder.query<
       ServicesEntityType[],
       { category: string; serviceId: number }
@@ -86,6 +99,7 @@ export const serviceApi = createApi({
 // auto-generated based on the defined endpoints
 export const {
   useListServicesQuery,
+  useCreateServiceMutation,
   useCreateFeedbackMutation,
   useListFeedbacksQuery,
   useUpdateFeedbackMutation,

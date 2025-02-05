@@ -5,9 +5,13 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import RootLayout from "../layouts/RootLayout";
 import SiteLayout from "../layouts/SiteLayout";
 import AddEventPage from "../pages/dashboard/AddEventPage";
+import DashboardBusinessPage from "../pages/dashboard/DashboardBusinessPage";
+import DashboardEventPage from "../pages/dashboard/DashboardEventPage";
 import DashboardHomePage from "../pages/dashboard/DashboardHomePage";
+import DashboardServicePage from "../pages/dashboard/DashboardServicePage";
+import DashboardTourismPage from "../pages/dashboard/DashboardTourismPage";
+import DashboardUserPage from "../pages/dashboard/DashboardUserPage";
 import TestPage from "../pages/dashboard/TestPage";
-import UsersPage from "../pages/dashboard/UsersPage";
 import BusinessPage from "../pages/site/BusinessPage";
 import EventsPage from "../pages/site/EventsPage";
 import HomePage from "../pages/site/HomePage";
@@ -16,6 +20,7 @@ import MapPage from "../pages/site/MapPage";
 import NewsPage from "../pages/site/NewsPage";
 import ServicesPage from "../pages/site/ServicesPage";
 import TourismPage from "../pages/site/TourismPage";
+import DashboardNewsPage from "../pages/dashboard/DashboardNewsPage";
 
 const router = createBrowserRouter([
   {
@@ -88,16 +93,40 @@ const router = createBrowserRouter([
                 element: <DashboardHomePage />,
               },
               {
-                path: "add-event",
-                element: <AddEventPage />,
+                path: "users",
+                element: <DashboardUserPage />,
               },
               {
-                path: "users",
-                element: <UsersPage />,
+                path: "events",
+                element: <DashboardEventPage />,
+              },
+              {
+                path: "services",
+                element: <DashboardServicePage />,
+              },
+              {
+                path: "businesses",
+                element: <DashboardBusinessPage />,
+              },
+              {
+                path: "services",
+                element: <DashboardTourismPage />,
+              },
+              {
+                path: "news",
+                element: <DashboardNewsPage />,
+              },
+              {
+                path: "tourisms",
+                element: <DashboardTourismPage />,
               },
               {
                 path: "test",
                 element: <TestPage />,
+              },
+              {
+                path: "add-event",
+                element: <AddEventPage />,
               },
               {
                 path: "*",

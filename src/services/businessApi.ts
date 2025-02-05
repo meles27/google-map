@@ -12,8 +12,20 @@ export const businessApi = createApi({
     listBusiness: builder.query<PaginatedResponse<BusinessEntityType>, void>({
       query: () => {
         return {
-          url: config.BUSINESS_URL,
+          url: config.BUSINESSES_URL,
           method: "GET",
+        };
+      },
+    }),
+    createBusiness: builder.mutation({
+      query: (event) => {
+        return {
+          url: config.BUSINESSES_URL,
+          method: "POST",
+          data: event,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         };
       },
     }),
@@ -22,4 +34,4 @@ export const businessApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useListBusinessQuery } = businessApi;
+export const { useListBusinessQuery, useCreateBusinessMutation } = businessApi;
